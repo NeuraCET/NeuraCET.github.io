@@ -1,0 +1,3193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NeuraCET is the Applied AI student club at College of Engineering Trivandrum, Kerala. We build agents, smart systems, and real AI projects.">
+  <meta name="theme-color" content="#080808">
+  <title>NeuraCET | Applied AI Club at CET Kerala</title>
+  <link rel="preload" as="image" href="assets/neuracet-logo-384.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b09;
+      --bg-2: #11110f;
+      --surface: #f3efe2;
+      --surface-2: #ded7c4;
+      --ink: #0b0b09;
+      --text: #f7f2e8;
+      --soft-text: rgba(247, 242, 232, 0.72);
+      --faint-text: rgba(247, 242, 232, 0.48);
+      --muted: #8b8679;
+      --accent: #ff5a1f;
+      --accent-2: #f7ff00;
+      --card: #141411;
+      --border: rgba(247, 242, 232, 0.22);
+      --border-strong: #f7f2e8;
+      --shadow-flat: 8px 8px 0 #ff5a1f;
+      --shadow-ink: 8px 8px 0 #0b0b09;
+      --display: "Space Grotesk", sans-serif;
+      --body: "Inter", sans-serif;
+      --mono: "JetBrains Mono", monospace;
+      --max: 1240px;
+      --pad: clamp(18px, 5vw, 72px);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--body);
+      background: var(--bg);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(247, 242, 232, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247, 242, 232, 0.055) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.72) 44%, transparent 100%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: -2;
+      width: 34vw;
+      height: 100vh;
+      pointer-events: none;
+      background: linear-gradient(135deg, transparent 0 38%, rgba(255, 90, 31, 0.92) 38% 51%, transparent 51% 100%);
+      opacity: 0.18;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      cursor: none;
+    }
+
+    button,
+    .button {
+      cursor: none;
+    }
+
+    ::selection {
+      color: var(--ink);
+      background: var(--accent-2);
+    }
+
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      background: #fff;
+      transform: translate(-50%, -50%);
+      transition: width 160ms ease, height 160ms ease, background 160ms ease, border-color 160ms ease;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-dot.is-hovering {
+      width: 46px;
+      height: 46px;
+      background: transparent;
+      border-color: #fff;
+    }
+
+    .logo-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: grid;
+      place-items: center;
+      padding: var(--pad);
+      color: var(--text);
+      background:
+        linear-gradient(rgba(247, 242, 232, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247, 242, 232, 0.05) 1px, transparent 1px),
+        var(--bg);
+      background-size: 44px 44px;
+      pointer-events: none;
+      transition: opacity 420ms ease, visibility 0s linear 420ms;
+    }
+
+    body.is-loaded .logo-loader {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .logo-loader-card {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: clamp(136px, 18vw, 196px);
+      aspect-ratio: 1;
+      border: 2px solid var(--border-strong);
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: 8px 8px 0 var(--accent);
+      animation: logoCardIn 920ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+    }
+
+    .logo-loader-card::before,
+    .logo-loader-card::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .logo-loader-card::before {
+      inset: 14px;
+      border: 1px solid rgba(11, 11, 9, 0.18);
+      border-radius: 20px;
+    }
+
+    .logo-loader-card::after {
+      inset: -11px;
+      border: 2px solid rgba(247, 255, 0, 0.72);
+      border-radius: 36px;
+      opacity: 0;
+      animation: logoSignal 1250ms ease-out infinite;
+    }
+
+    .logo-loader img {
+      position: relative;
+      z-index: 1;
+      width: 78%;
+      height: auto;
+      border-radius: 12px;
+      filter: contrast(1.08);
+      animation: logoPulse 1250ms ease-in-out infinite;
+    }
+
+    .loader-line {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      height: 3px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(11, 11, 9, 0.14);
+    }
+
+    .loader-line::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform-origin: left;
+      animation: loaderLine 1250ms ease-in-out infinite;
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .neural-field {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      opacity: 0.72;
+      mix-blend-mode: screen;
+    }
+
+    .hero-inner,
+    .section-inner,
+    .quote-content,
+    .marquee,
+    .footer > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .noise,
+    .hero-orb,
+    .neural-mark,
+    .project-signal {
+      display: none !important;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px var(--pad);
+      color: var(--text);
+      border-bottom: 1px solid transparent;
+      background: transparent;
+      transition: padding 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .nav.scrolled {
+      padding-top: 14px;
+      padding-bottom: 14px;
+      border-color: var(--border);
+      background: rgba(11, 11, 9, 0.88);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 68px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      white-space: nowrap;
+      background: transparent;
+      transition: transform 180ms ease;
+    }
+
+    .brand:hover {
+      transform: translateY(-2px);
+    }
+
+    .brand-logo-wrap {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: clamp(54px, 5vw, 72px);
+      height: clamp(54px, 5vw, 72px);
+      overflow: hidden;
+      border: 2px solid var(--border-strong);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: 5px 5px 0 var(--accent);
+      transition: box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .brand:hover .brand-logo-wrap {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--accent-2);
+    }
+
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.34);
+      filter: contrast(1.08);
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 4px;
+      transform: translateY(1px);
+    }
+
+    .brand-name {
+      font-family: var(--display);
+      font-size: clamp(1.42rem, 2.4vw, 2.35rem);
+      font-weight: 800;
+      line-height: 0.84;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      color: var(--accent-2);
+      font-family: var(--mono);
+      font-size: clamp(0.62rem, 0.8vw, 0.74rem);
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1vw, 14px);
+      padding: 7px;
+      border: 1px solid rgba(247, 242, 232, 0.18);
+      border-radius: 999px;
+      background: rgba(247, 242, 232, 0.045);
+      color: rgba(247, 242, 232, 0.76);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .nav-links a::after {
+      display: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: var(--text);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 132px var(--pad) 0;
+      overflow: hidden;
+      border-bottom: 2px solid var(--border-strong);
+      background:
+        linear-gradient(90deg, rgba(247, 242, 232, 0.06) 1px, transparent 1px),
+        linear-gradient(rgba(247, 242, 232, 0.06) 1px, transparent 1px),
+        var(--bg);
+      background-size: 88px 88px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 128px;
+      right: var(--pad);
+      width: clamp(92px, 14vw, 190px);
+      height: clamp(92px, 14vw, 190px);
+      border: 2px solid var(--text);
+      border-radius: 50%;
+      background: repeating-linear-gradient(135deg, transparent 0 10px, rgba(247, 242, 232, 0.16) 10px 12px);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 28%;
+      left: calc(var(--pad) * -0.4);
+      width: clamp(150px, 22vw, 320px);
+      height: clamp(150px, 22vw, 320px);
+      border: 2px solid rgba(247, 242, 232, 0.3);
+      transform: rotate(-11deg);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding-bottom: 118px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 26px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: clamp(0.72rem, 1vw, 0.9rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--bg);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent-2);
+    }
+
+    .hero-title {
+      max-width: 1180px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(5.1rem, 15.4vw, 15.8rem);
+      font-weight: 800;
+      line-height: 0.76;
+      letter-spacing: -0.105em;
+      text-transform: uppercase;
+    }
+
+    .hero-title .line {
+      display: block;
+    }
+
+    .hero-title .dynamic-line {
+      display: flex;
+      align-items: baseline;
+      color: var(--accent);
+    }
+
+    .type-target {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-2);
+      text-decoration-thickness: clamp(8px, 1.1vw, 18px);
+      text-underline-offset: -0.04em;
+      text-decoration-skip-ink: none;
+    }
+
+    .type-cursor {
+      display: inline-block;
+      width: 0.07em;
+      height: 0.7em;
+      margin-left: 0.05em;
+      background: var(--text);
+      transform: translateY(0.08em);
+      animation: cursorBlink 720ms steps(2, jump-none) infinite;
+    }
+
+    .hero-copy {
+      max-width: 690px;
+      margin: 34px 0 0;
+      color: var(--soft-text);
+      font-size: clamp(1.03rem, 1.8vw, 1.38rem);
+      font-weight: 600;
+      line-height: 1.55;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 22px;
+      overflow: hidden;
+      border: 2px solid var(--border-strong);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    .button::before {
+      display: none;
+    }
+
+    .button:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--text);
+    }
+
+    .button-primary {
+      color: var(--ink);
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: none;
+    }
+
+    .button-primary:hover {
+      color: var(--ink);
+      box-shadow: 6px 6px 0 var(--accent-2);
+    }
+
+    .button-ghost {
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .button-ghost:hover {
+      color: var(--ink);
+      background: var(--text);
+      border-color: var(--text);
+    }
+
+    .hero-ghost {
+      position: absolute;
+      right: -0.08em;
+      bottom: 86px;
+      z-index: 0;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(247, 242, 232, 0.18);
+      font-family: var(--display);
+      font-size: clamp(8rem, 28vw, 27rem);
+      font-weight: 800;
+      letter-spacing: -0.13em;
+      line-height: 0.7;
+      pointer-events: none;
+    }
+
+    .marquee {
+      position: relative;
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      border-top: 2px solid var(--border-strong);
+      border-bottom: 2px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .hero .marquee {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+    }
+
+    .marquee-track {
+      display: flex;
+      min-width: max-content;
+      animation: marqueeScroll 24s linear infinite;
+    }
+
+    .marquee span {
+      display: inline-flex;
+      align-items: center;
+      padding: 17px 0;
+      color: inherit;
+      font-family: var(--display);
+      font-size: clamp(1rem, 2vw, 1.55rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(82px, 12vw, 154px) var(--pad);
+      border-bottom: 1px solid rgba(247, 242, 232, 0.16);
+    }
+
+    .section-inner {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--accent-2);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(247, 242, 232, 0.04);
+    }
+
+    .section-label::after {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.72fr) minmax(360px, 1fr);
+      gap: clamp(34px, 6vw, 86px);
+      align-items: end;
+    }
+
+    .stats {
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat {
+      display: grid;
+      grid-template-columns: minmax(90px, 0.32fr) 1fr;
+      gap: 18px;
+      align-items: stretch;
+      padding: 20px;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background: var(--surface);
+      box-shadow: 6px 6px 0 var(--accent);
+    }
+
+    .stat-number {
+      font-family: var(--display);
+      font-size: clamp(4rem, 8vw, 8rem);
+      font-weight: 800;
+      line-height: 0.76;
+      letter-spacing: -0.08em;
+      color: var(--ink);
+    }
+
+    .stat-copy {
+      align-self: end;
+      color: rgba(11, 11, 9, 0.72);
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .manifesto-copy {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--display);
+      font-size: clamp(2.25rem, 5.2vw, 5.8rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+    }
+
+    .manifesto-copy .accent {
+      color: var(--accent);
+    }
+
+    .section-rule {
+      width: min(100%, var(--max));
+      height: 2px;
+      margin: clamp(56px, 8vw, 104px) auto 0;
+      background: var(--border-strong);
+    }
+
+    .mission-vision {
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(247, 242, 232, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(247, 242, 232, 0.045) 1px, transparent 1px),
+        var(--bg);
+      background-size: 54px 54px;
+    }
+
+    .mv-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: clamp(28px, 5vw, 52px);
+    }
+
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(18px, 3vw, 34px);
+      align-items: stretch;
+    }
+
+    .mv-panel {
+      position: relative;
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 44px;
+      overflow: hidden;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: clamp(24px, 4vw, 42px);
+      isolation: isolate;
+    }
+
+    .mv-panel::before {
+      content: attr(data-ghost);
+      position: absolute;
+      right: -0.12em;
+      bottom: -0.1em;
+      z-index: -1;
+      color: transparent;
+      -webkit-text-stroke: 1px currentColor;
+      font-family: var(--display);
+      font-size: clamp(9rem, 20vw, 18rem);
+      font-weight: 800;
+      line-height: 0.72;
+      letter-spacing: -0.12em;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+
+    .mv-panel::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      z-index: -1;
+      border: 1px solid currentColor;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+
+    .mv-panel.mission-panel {
+      color: var(--ink);
+      background: var(--surface);
+      box-shadow: 9px 9px 0 var(--accent);
+      transform: translateY(22px);
+    }
+
+    .mv-panel.vision-panel {
+      color: var(--text);
+      background:
+        radial-gradient(circle at 84% 18%, rgba(247, 255, 0, 0.18), transparent 28%),
+        linear-gradient(135deg, rgba(255, 90, 31, 0.2), transparent 36%),
+        var(--card);
+      box-shadow: 9px 9px 0 var(--accent-2);
+    }
+
+    .mv-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: inherit;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.74;
+    }
+
+    .mv-panel h3 {
+      max-width: 520px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 7vw, 7.2rem);
+      font-weight: 800;
+      line-height: 0.78;
+      letter-spacing: -0.095em;
+      text-transform: uppercase;
+    }
+
+    .mv-panel p {
+      max-width: 680px;
+      margin: 0;
+      font-size: clamp(1rem, 1.45vw, 1.18rem);
+      font-weight: 700;
+      line-height: 1.58;
+      letter-spacing: -0.02em;
+      opacity: 0.82;
+    }
+
+    .pillars {
+      padding-top: clamp(76px, 10vw, 136px);
+      background: linear-gradient(180deg, #0b0b09 0%, #12120f 100%);
+    }
+
+    .pillars-header,
+    .projects-header,
+    .team-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      max-width: 880px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 8.4vw, 8.8rem);
+      font-weight: 800;
+      line-height: 0.82;
+      letter-spacing: -0.095em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker {
+      max-width: 360px;
+      margin: 0;
+      color: var(--soft-text);
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+    }
+
+    .pillar-card {
+      position: relative;
+      min-height: 286px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px;
+      overflow: hidden;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background: var(--surface);
+      box-shadow: none;
+      transition: transform 170ms ease, box-shadow 170ms ease, background 170ms ease;
+    }
+
+    .pillar-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      height: auto;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(var(--ink) 1px, transparent 1px),
+        linear-gradient(90deg, var(--ink) 1px, transparent 1px);
+      background-size: 24px 24px;
+      transition: opacity 170ms ease;
+    }
+
+    .pillar-card::after {
+      content: "";
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 1;
+      transition: transform 170ms ease;
+    }
+
+    .pillar-card:hover {
+      transform: translate(-5px, -5px);
+      border-color: var(--border-strong);
+      background: #fffaf0;
+      box-shadow: var(--shadow-flat);
+    }
+
+    .pillar-card:hover::before {
+      opacity: 0.13;
+    }
+
+    .pillar-card:hover::after {
+      transform: scale(1.08);
+    }
+
+    .pillar-card:nth-child(1),
+    .pillar-card:nth-child(2) {
+      grid-column: span 3;
+    }
+
+    .pillar-card:nth-child(n+3) {
+      grid-column: span 3;
+    }
+
+    .pillar-icon {
+      position: relative;
+      z-index: 1;
+      font-size: 2.2rem;
+      filter: grayscale(1) contrast(1.4);
+    }
+
+    .pillar-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 12px;
+      font-family: var(--display);
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      line-height: 0.9;
+      letter-spacing: -0.065em;
+      text-transform: uppercase;
+    }
+
+    .pillar-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 360px;
+      margin: 0;
+      color: rgba(11, 11, 9, 0.68);
+      font-size: 1rem;
+      font-weight: 650;
+      line-height: 1.5;
+    }
+
+    .pillar-meta {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 42px;
+      color: rgba(11, 11, 9, 0.62);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .separator {
+      border-color: var(--ink);
+      background: var(--accent);
+      color: var(--ink);
+    }
+
+    .separator .marquee-track {
+      animation-duration: 18s;
+    }
+
+    .separator span {
+      padding: 21px 0;
+      color: inherit;
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 3.8vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.055em;
+    }
+
+    .roadmap {
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(247, 242, 232, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(247, 242, 232, 0.05) 1px, transparent 1px),
+        var(--bg);
+      background-size: 64px 64px;
+    }
+
+    .roadmap-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: clamp(34px, 6vw, 72px);
+    }
+
+    .roadmap-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .roadmap-track::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 52px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--text));
+      opacity: 0.66;
+      pointer-events: none;
+    }
+
+    .roadmap-step {
+      position: relative;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 38px;
+      overflow: hidden;
+      padding: 26px;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--ink);
+      isolation: isolate;
+      transition: transform 170ms ease, box-shadow 170ms ease, background 170ms ease;
+    }
+
+    .roadmap-step::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(11, 11, 9, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 11, 9, 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .roadmap-step::after {
+      content: "";
+      position: absolute;
+      top: 39px;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 10px var(--surface), 0 0 0 12px var(--ink);
+      transform: translateX(-50%);
+    }
+
+    .roadmap-step:nth-child(2) {
+      background: #fffaf0;
+      transform: translateY(28px);
+    }
+
+    .roadmap-step:nth-child(3) {
+      background: var(--accent);
+    }
+
+    .roadmap-step:hover {
+      transform: translate(-5px, -5px);
+      box-shadow: 9px 9px 0 var(--accent-2);
+    }
+
+    .roadmap-step:nth-child(2):hover {
+      transform: translate(-5px, 23px);
+    }
+
+    .roadmap-meta {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      color: rgba(11, 11, 9, 0.62);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .roadmap-number {
+      font-family: var(--display);
+      font-size: clamp(6rem, 12vw, 11rem);
+      font-weight: 800;
+      line-height: 0.72;
+      letter-spacing: -0.12em;
+    }
+
+    .roadmap-step h3 {
+      margin: 0 0 14px;
+      font-family: var(--display);
+      font-size: clamp(2.3rem, 4.2vw, 4.4rem);
+      line-height: 0.84;
+      letter-spacing: -0.08em;
+      text-transform: uppercase;
+    }
+
+    .roadmap-step p {
+      margin: 0;
+      color: rgba(11, 11, 9, 0.7);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .projects {
+      overflow: hidden;
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .projects .section-label {
+      color: var(--ink);
+      border-color: rgba(11, 11, 9, 0.22);
+      background: rgba(11, 11, 9, 0.05);
+    }
+
+    .projects .section-kicker {
+      color: rgba(11, 11, 9, 0.62);
+    }
+
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding: 16px;
+      overflow: hidden;
+      border: 2px solid var(--ink);
+      border-radius: 22px;
+      background: #fffaf0;
+      isolation: isolate;
+      transition: transform 170ms ease, box-shadow 170ms ease, background 170ms ease;
+    }
+
+    .project-card:nth-child(even) {
+      background: #ece5d2;
+    }
+
+    .project-card:hover {
+      transform: translate(-5px, -5px);
+      border-color: var(--ink);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    .project-visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      min-height: 0;
+      overflow: hidden;
+      border: 2px solid var(--ink);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, var(--accent) 0 18%, transparent 18% 100%),
+        linear-gradient(90deg, rgba(11, 11, 9, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(11, 11, 9, 0.08) 1px, transparent 1px),
+        var(--surface-2);
+      background-size: auto, 26px 26px, 26px 26px, auto;
+    }
+
+    .project-visual img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: saturate(0.9) contrast(1.04);
+      transition: transform 220ms ease;
+    }
+
+    .project-card:hover .project-visual img {
+      transform: scale(1.035);
+    }
+
+    .project-visual::after {
+      content: attr(data-number);
+      position: absolute;
+      border: 2px solid var(--ink);
+      right: 10px;
+      bottom: 10px;
+      padding: 5px 8px;
+      color: var(--ink);
+      background: var(--accent-2);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .project-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      gap: 18px;
+      padding: 18px 2px 0;
+    }
+
+    .project-count {
+      color: rgba(11, 11, 9, 0.52);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .project-content h3 {
+      margin: 0 0 12px;
+      font-family: var(--display);
+      font-size: clamp(1.45rem, 2.1vw, 2.1rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .project-content p {
+      margin: 0;
+      color: rgba(11, 11, 9, 0.66);
+      font-size: 0.94rem;
+      font-weight: 650;
+      line-height: 1.55;
+    }
+
+    .project-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag,
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: transparent;
+    }
+
+    .badge {
+      border-width: 2px;
+      background: var(--accent-2);
+    }
+
+    .quote-band {
+      position: relative;
+      min-height: 68vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(82px, 11vw, 136px) var(--pad);
+      overflow: hidden;
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      color: var(--ink);
+      background: var(--accent);
+    }
+
+    .quote-band::before {
+      content: "";
+      position: absolute;
+      inset: 26px;
+      border: 2px solid var(--ink);
+      pointer-events: none;
+    }
+
+    .quote-band svg {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: min(900px, 116vw);
+      opacity: 0.2;
+      transform: translate(-50%, -50%);
+    }
+
+    .quote-band line {
+      stroke: var(--ink);
+      stroke-width: 2;
+    }
+
+    .quote-band circle {
+      fill: var(--accent);
+      stroke: var(--ink);
+      stroke-width: 2;
+    }
+
+    .quote-content {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 1040px);
+      text-align: center;
+    }
+
+    .quote {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(2.9rem, 8vw, 8.9rem);
+      font-style: italic;
+      font-weight: 800;
+      line-height: 0.86;
+      letter-spacing: -0.09em;
+      text-transform: uppercase;
+    }
+
+    .quote-highlight {
+      color: var(--accent-2);
+    }
+
+    .quote-attribution {
+      display: inline-flex;
+      margin-top: 28px;
+      padding: 8px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--surface);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .team-layout {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .member-team-card {
+      position: relative;
+      min-height: 100%;
+      padding: 28px;
+      overflow: hidden;
+      border: 2px solid var(--border-strong);
+      border-radius: 28px;
+      color: var(--ink);
+      background: var(--surface);
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .member-team-card::after {
+      content: attr(data-team-number);
+      position: absolute;
+      right: -12px;
+      bottom: -10px;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(11, 11, 9, 0.16);
+      font-family: var(--display);
+      font-size: clamp(5.4rem, 11vw, 8.2rem);
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      transform: rotate(-8deg);
+    }
+
+    .member-team-card:hover {
+      transform: translate(-4px, -4px);
+      background: #fffaf0;
+      box-shadow: 7px 7px 0 var(--accent);
+    }
+
+    .member-team-card h3 {
+      position: relative;
+      z-index: 2;
+      margin: 0 0 20px;
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 0.9;
+      letter-spacing: -0.065em;
+      text-transform: uppercase;
+    }
+
+    .member-list {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .member-list li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      min-height: 54px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(11, 11, 9, 0.18);
+    }
+
+    .member-list li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .member-avatar {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      background: var(--accent-2);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .member-list li:nth-child(even) .member-avatar {
+      background: var(--accent);
+    }
+
+    .member-name {
+      font-family: var(--display);
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .member-detail {
+      display: block;
+      margin-top: 3px;
+      color: rgba(11, 11, 9, 0.58);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .faq {
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(247, 242, 232, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(247, 242, 232, 0.045) 1px, transparent 1px),
+        var(--bg);
+      background-size: 46px 46px;
+    }
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.72fr) minmax(420px, 1fr);
+      gap: clamp(30px, 6vw, 78px);
+      align-items: start;
+    }
+
+    .faq-intro {
+      position: sticky;
+      top: 112px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border: 2px solid var(--border-strong);
+      border-radius: 18px;
+      background: rgba(247, 242, 232, 0.045);
+      overflow: hidden;
+      transition: background 170ms ease, box-shadow 170ms ease, transform 170ms ease;
+    }
+
+    .faq-item.is-open,
+    .faq-item:hover {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 7px 7px 0 var(--accent);
+      transform: translate(-3px, -3px);
+    }
+
+    .faq-item h3 {
+      margin: 0;
+    }
+
+    .faq-question {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+      min-height: 72px;
+      padding: 18px 20px;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      font: inherit;
+      text-align: left;
+    }
+
+    .faq-index {
+      color: var(--accent-2);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+
+    .faq-item.is-open .faq-index,
+    .faq-item:hover .faq-index {
+      color: var(--accent);
+    }
+
+    .faq-question-text {
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 2.2vw, 2.05rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .faq-toggle {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      font-family: var(--mono);
+      font-size: 1.2rem;
+      font-weight: 900;
+      line-height: 1;
+      transition: transform 170ms ease, background 170ms ease, color 170ms ease;
+    }
+
+    .faq-item.is-open .faq-toggle {
+      color: var(--ink);
+      background: var(--accent-2);
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 220ms ease;
+    }
+
+    .faq-item.is-open .faq-answer {
+      grid-template-rows: 1fr;
+    }
+
+    .faq-answer-inner {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      padding: 0 20px 22px 58px;
+      color: inherit;
+      font-size: 1rem;
+      font-weight: 650;
+      line-height: 1.58;
+      opacity: 0.72;
+    }
+
+    .join {
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      border-top: 0;
+      background:
+        linear-gradient(90deg, rgba(247, 242, 232, 0.065) 1px, transparent 1px),
+        linear-gradient(rgba(247, 242, 232, 0.065) 1px, transparent 1px),
+        var(--bg);
+      background-size: 52px 52px;
+    }
+
+    .join::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      height: auto;
+      border: 2px solid rgba(247, 242, 232, 0.22);
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .join-title {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(4.6rem, 13vw, 14rem);
+      font-weight: 800;
+      line-height: 0.74;
+      letter-spacing: -0.115em;
+      text-transform: uppercase;
+    }
+
+    .join-copy {
+      max-width: 640px;
+      margin: 28px auto 0;
+      color: var(--soft-text);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      font-weight: 650;
+      line-height: 1.6;
+    }
+
+    .join .button {
+      min-height: 64px;
+      margin-top: 36px;
+      padding: 0 32px;
+      font-size: 0.98rem;
+    }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      background: rgba(247, 242, 232, 0.045);
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    .social-link:hover {
+      color: var(--ink);
+      background: var(--text);
+      transform: translateY(-3px);
+    }
+
+    .social-icon {
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--accent-2);
+      font-size: 0.66rem;
+      font-weight: 900;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 36px var(--pad);
+      border-top: 2px solid var(--border-strong);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--bg);
+    }
+
+    .footer-location {
+      text-align: right;
+    }
+
+    .tagline-badge {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 92px;
+      height: 92px;
+      border: 2px solid var(--border-strong);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .tagline-badge::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .tagline-ring {
+      position: absolute;
+      inset: 6px;
+      animation: rotateRing 13s linear infinite;
+    }
+
+    .tagline-ring span {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 40px;
+      transform-origin: 0 40px;
+      font-size: 0.48rem;
+      color: var(--ink);
+    }
+
+    @keyframes logoCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.035); }
+    }
+
+    @keyframes logoSignal {
+      0% {
+        opacity: 0.62;
+        transform: scale(0.94);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.12);
+      }
+    }
+
+    @keyframes loaderLine {
+      0% { transform: scaleX(0.12) translateX(-82%); }
+      50% { transform: scaleX(0.72) translateX(12%); }
+      100% { transform: scaleX(0.18) translateX(105%); }
+    }
+
+    @keyframes cursorBlink {
+      0%, 45% { opacity: 1; }
+      46%, 100% { opacity: 0; }
+    }
+
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes rotateRing {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .neural-field {
+        opacity: 0.42;
+      }
+
+      .logo-loader-card,
+      .logo-loader-card::after,
+      .logo-loader img,
+      .loader-line::before {
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .project-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .team-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px) {
+      html {
+        scroll-padding-top: 134px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding-top: 18px;
+        padding-bottom: 14px;
+      }
+
+      .nav-links {
+        width: 100%;
+        gap: 8px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 154px;
+      }
+
+      .hero::before {
+        top: 166px;
+        right: 18px;
+        opacity: 0.55;
+      }
+
+      .hero-title {
+        font-size: clamp(4.8rem, 18vw, 10rem);
+      }
+
+      .hero-copy {
+        max-width: 560px;
+      }
+
+      .about-grid,
+      .team-layout,
+      .faq-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .mv-header,
+      .roadmap-header {
+        display: block;
+      }
+
+      .mv-grid,
+      .roadmap-track {
+        grid-template-columns: 1fr;
+      }
+
+      .mv-panel.mission-panel,
+      .roadmap-step:nth-child(2) {
+        transform: none;
+      }
+
+      .roadmap-track::before {
+        top: 0;
+        bottom: 0;
+        left: 38px;
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, var(--accent), var(--accent-2), var(--text));
+      }
+
+      .roadmap-step::after {
+        left: 38px;
+        transform: translateX(-50%);
+      }
+
+      .roadmap-step:nth-child(2):hover {
+        transform: translate(-5px, -5px);
+      }
+
+      .faq-intro {
+        position: relative;
+        top: 0;
+      }
+
+      .pillar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pillar-card:nth-child(n) {
+        grid-column: auto;
+      }
+
+      .project-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pillars-header,
+      .projects-header,
+      .team-header {
+        display: block;
+      }
+
+      .section-kicker {
+        margin-top: 18px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      :root {
+        --pad: 18px;
+        --shadow-flat: 5px 5px 0 #ff5a1f;
+      }
+
+      body,
+      a,
+      button,
+      .button {
+        cursor: auto;
+      }
+
+      .cursor-dot {
+        display: none;
+      }
+
+      .neural-field {
+        opacity: 0.5;
+      }
+
+      .brand {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 12px;
+        min-height: 58px;
+      }
+
+      .brand-logo-wrap {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        box-shadow: 4px 4px 0 var(--accent);
+      }
+
+      .brand-name {
+        font-size: 1.54rem;
+      }
+
+      .brand-subtitle {
+        font-size: 0.6rem;
+      }
+
+      .nav-links a {
+        padding: 0 8px;
+      }
+
+      .hero {
+        align-items: center;
+        min-height: 100svh;
+        padding-top: 148px;
+      }
+
+      .hero-inner {
+        width: calc(100vw - (var(--pad) * 2));
+        max-width: calc(100vw - (var(--pad) * 2));
+        padding-bottom: 120px;
+      }
+
+      .hero::before,
+      .hero::after {
+        display: none;
+      }
+
+      .hero-title {
+        width: calc(100% - var(--pad));
+        font-size: clamp(3rem, 14.5vw, 4.4rem);
+        line-height: 0.82;
+        letter-spacing: -0.09em;
+      }
+
+      .hero-title .dynamic-line {
+        display: block;
+      }
+
+      .hero-copy {
+        width: min(100%, 320px);
+        max-width: calc(100vw - (var(--pad) * 2));
+        margin-top: 24px;
+        font-size: 1rem;
+      }
+
+      .hero-actions {
+        width: min(100%, 320px);
+        max-width: calc(100vw - (var(--pad) * 2));
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .stat {
+        grid-template-columns: 0.72fr 1fr;
+        padding: 16px;
+      }
+
+      .section-title,
+      .manifesto-copy,
+      .quote,
+      .join-title,
+      .mv-panel h3,
+      .roadmap-step h3,
+      .faq-question-text {
+        letter-spacing: -0.075em;
+      }
+
+      .pillar-card,
+      .project-card,
+      .member-team-card,
+      .mv-panel,
+      .roadmap-step,
+      .faq-item {
+        border-radius: 18px;
+      }
+
+      .project-list {
+        grid-template-columns: 1fr;
+      }
+
+      .mv-panel {
+        min-height: 320px;
+        padding: 22px;
+      }
+
+      .roadmap-step {
+        min-height: 300px;
+        padding: 22px;
+      }
+
+      .faq-question {
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        padding: 18px;
+      }
+
+      .faq-index {
+        grid-column: 1 / -1;
+      }
+
+      .faq-answer p {
+        padding: 0 18px 20px;
+      }
+
+      .project-visual {
+        aspect-ratio: 16 / 10;
+      }
+
+      .quote-band::before,
+      .join::before {
+        inset: 14px;
+      }
+
+      .footer {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .footer-location {
+        text-align: center;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="logo-loader" role="status" aria-label="Loading NeuraCET">
+    <div class="logo-loader-card">
+      <img src="assets/neuracet-logo-384.png" alt="" width="384" height="384" decoding="async" fetchpriority="high">
+      <span class="loader-line" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="page-shell">
+    <canvas class="neural-field" aria-hidden="true"></canvas>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#top" class="brand" aria-label="NeuraCET home">
+        <span class="brand-logo-wrap" aria-hidden="true">
+          <img class="brand-logo" src="assets/neuracet-logo-384.png" alt="" width="72" height="72" decoding="async">
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">NeuraCET</span>
+          <span class="brand-subtitle">CET Trivandrum</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#mission">Mission</a>
+        <a href="#pillars">Sub-Teams</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#events">Events</a>
+        <a href="#team">Team</a>
+        <a href="#faq">FAQ</a>
+        <a href="#join">Join Us</a>
+      </div>
+    </nav>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero-orb one" aria-hidden="true"></div>
+        <div class="hero-orb two" aria-hidden="true"></div>
+        <div class="hero-ghost" aria-hidden="true">NEURA</div>
+        <svg class="neural-mark" viewBox="0 0 360 260" aria-hidden="true">
+          <defs>
+            <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7B61FF"></stop>
+              <stop offset="100%" stop-color="#00D4AA"></stop>
+            </linearGradient>
+          </defs>
+          <line x1="72" y1="190" x2="72" y2="102"></line>
+          <line x1="72" y1="102" x2="134" y2="128"></line>
+          <line x1="72" y1="102" x2="144" y2="44"></line>
+          <line x1="72" y1="190" x2="134" y2="128"></line>
+          <line x1="134" y1="128" x2="144" y2="44"></line>
+          <line x1="134" y1="128" x2="170" y2="178"></line>
+          <line x1="144" y1="44" x2="170" y2="178"></line>
+          <line x1="144" y1="44" x2="238" y2="110"></line>
+          <line x1="238" y1="110" x2="286" y2="58"></line>
+          <line x1="238" y1="110" x2="288" y2="156"></line>
+          <line x1="238" y1="110" x2="214" y2="202"></line>
+          <line x1="286" y1="58" x2="318" y2="98"></line>
+          <line x1="286" y1="58" x2="318" y2="22"></line>
+          <line x1="318" y1="22" x2="318" y2="98"></line>
+          <line x1="318" y1="98" x2="214" y2="202"></line>
+          <line x1="288" y1="156" x2="214" y2="202"></line>
+          <circle cx="72" cy="190" r="13"></circle>
+          <circle cx="72" cy="102" r="13"></circle>
+          <circle cx="134" cy="128" r="13"></circle>
+          <circle cx="144" cy="44" r="13"></circle>
+          <circle cx="170" cy="178" r="13"></circle>
+          <circle cx="238" cy="110" r="13"></circle>
+          <circle cx="286" cy="58" r="13"></circle>
+          <circle cx="288" cy="156" r="13"></circle>
+          <circle cx="318" cy="98" r="13"></circle>
+          <circle cx="318" cy="22" r="13"></circle>
+          <circle cx="214" cy="202" r="13"></circle>
+        </svg>
+
+        <div class="hero-inner reveal">
+          <div class="eyebrow">EST. 2026 · CET, KERALA</div>
+          <h1 class="hero-title" id="hero-heading">
+            <span class="line">We Build</span>
+            <span class="line dynamic-line"><span class="type-target" data-words="AI Agents.|Smart Systems.|Real Solutions.|The Future."><span class="type-live">AI Agents.</span></span><span class="type-cursor" aria-hidden="true"></span></span>
+          </h1>
+          <p class="hero-copy">NeuraCET is CET's Applied AI club — where students stop learning about AI and start building with it.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#join">Coming Soon</a>
+            <a class="button button-ghost" href="#events">See Our Work ↓</a>
+          </div>
+        </div>
+
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span>APPLIED AI · GEMINI AMBASSADOR LINKED · CET · LANGCHAIN · AGENTS · OPEN SOURCE · RESEARCH · BUILD IN PUBLIC ·&nbsp;</span>
+            <span>APPLIED AI · GEMINI AMBASSADOR LINKED · CET · LANGCHAIN · AGENTS · OPEN SOURCE · RESEARCH · BUILD IN PUBLIC ·&nbsp;</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="about-heading">
+        <div class="section-inner about-grid reveal">
+          <div class="stats" aria-label="NeuraCET highlights">
+            <div class="stat">
+              <div class="stat-number">14</div>
+              <div class="stat-copy">Team Members</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">4</div>
+              <div class="stat-copy">Sub-teams</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">1</div>
+              <div class="stat-copy">Mission: Make AI Real</div>
+            </div>
+          </div>
+          <div>
+            <div class="section-label" id="about-heading">/ 00 ABOUT</div>
+            <p class="manifesto-copy">NeuraCET isn't a coding club. It's an applied AI movement at CET. We build agents, ship projects, contribute to open source, and push students from prompt users to <span class="accent">AI engineers.</span></p>
+          </div>
+        </div>
+        <div class="section-rule" aria-hidden="true"></div>
+      </section>
+
+      <section class="section mission-vision" id="mission" aria-labelledby="mission-heading">
+        <div class="section-inner">
+          <div class="mv-header reveal">
+            <div>
+              <div class="section-label">/ 01 MISSION & VISION</div>
+              <h2 class="section-title" id="mission-heading">From AI users to AI builders.</h2>
+            </div>
+            <p class="section-kicker">A manifesto for students who want to build, publish, collaborate, and solve real problems.</p>
+          </div>
+
+          <div class="mv-grid">
+            <article class="mv-panel mission-panel reveal" data-ghost="01">
+              <div class="mv-label"><span>MISSION</span><span>/ 01</span></div>
+              <div>
+                <h3>Make AI real.</h3>
+                <p>To help CET students move from passive AI users to active AI builders through hands-on projects, workshops, research, open-source contribution, and real-world problem solving.</p>
+              </div>
+            </article>
+
+            <article class="mv-panel vision-panel reveal" data-ghost="02">
+              <div class="mv-label"><span>VISION</span><span>/ 02</span></div>
+              <div>
+                <h3>Build the campus nerve center.</h3>
+                <p>To make NeuraCET the central AI innovation community of CET, where students from every branch can learn, build, publish, collaborate, and create AI systems that solve meaningful problems.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pillars" id="pillars" aria-labelledby="pillars-heading">
+        <div class="section-inner">
+          <div class="pillars-header reveal">
+            <div>
+              <div class="section-label">/ 02 SUB-TEAMS</div>
+              <h2 class="section-title" id="pillars-heading">Four teams. One nervous system.</h2>
+            </div>
+            <p class="section-kicker">Each sub-team gives the club a focused way to build, communicate, and grow.</p>
+          </div>
+
+          <div class="pillar-grid">
+            <article class="pillar-card reveal">
+              <div class="pillar-icon" aria-hidden="true">💻</div>
+              <div>
+                <h3>Technical</h3>
+                <p>We ship. LangChain, agents, open-source contributions.</p>
+              </div>
+              <div class="pillar-meta"><span>Build</span><span>01</span></div>
+            </article>
+
+            <article class="pillar-card reveal">
+              <div class="pillar-icon" aria-hidden="true">📡</div>
+              <div>
+                <h3>Outreach & Gemini</h3>
+                <p>Campus Ambassador programs, events, community growth.</p>
+              </div>
+              <div class="pillar-meta"><span>Community</span><span>02</span></div>
+            </article>
+
+            <article class="pillar-card reveal">
+              <div class="pillar-icon" aria-hidden="true">🎨</div>
+              <div>
+                <h3>Design</h3>
+                <p>Visual identity that makes AI feel human.</p>
+              </div>
+              <div class="pillar-meta"><span>Identity</span><span>03</span></div>
+            </article>
+
+            <article class="pillar-card reveal">
+              <div class="pillar-icon" aria-hidden="true">✍️</div>
+              <div>
+                <h3>Content Media</h3>
+                <p>Blogs, threads, and AI explainers that don't suck.</p>
+              </div>
+              <div class="pillar-meta"><span>Signal</span><span>04</span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee separator" aria-hidden="true">
+        <div class="marquee-track">
+          <span>THINK · BUILD · SHIP · LEARN · REPEAT · THINK · BUILD · SHIP · LEARN · REPEAT ·&nbsp;</span>
+          <span>THINK · BUILD · SHIP · LEARN · REPEAT · THINK · BUILD · SHIP · LEARN · REPEAT ·&nbsp;</span>
+        </div>
+      </div>
+
+      <section class="section roadmap" id="roadmap" aria-labelledby="roadmap-heading">
+        <div class="section-inner">
+          <div class="roadmap-header reveal">
+            <div>
+              <div class="section-label">/ 03 ROADMAP</div>
+              <h2 class="section-title" id="roadmap-heading">The builder roadmap.</h2>
+            </div>
+            <p class="section-kicker">A practical path from curiosity to real AI systems.</p>
+          </div>
+
+          <div class="roadmap-track">
+            <article class="roadmap-step reveal">
+              <div class="roadmap-meta"><span>01 / Learn</span><span>Start</span></div>
+              <div class="roadmap-number" aria-hidden="true">01</div>
+              <div>
+                <h3>Learn</h3>
+                <p>Learn AI/ML fundamentals and build basic apps and webpages using AI tools.</p>
+              </div>
+            </article>
+
+            <article class="roadmap-step reveal">
+              <div class="roadmap-meta"><span>02 / Build</span><span>Ship</span></div>
+              <div class="roadmap-number" aria-hidden="true">02</div>
+              <div>
+                <h3>Build</h3>
+                <p>Build AI agents, compete in hackathons, and ship AI software to solve real-world problems.</p>
+              </div>
+            </article>
+
+            <article class="roadmap-step reveal">
+              <div class="roadmap-meta"><span>03 / Scale</span><span>Launch</span></div>
+              <div class="roadmap-number" aria-hidden="true">03</div>
+              <div>
+                <h3>Scale</h3>
+                <p>Learn advanced AI/ML, LLM fine-tuning, and build CET's very own AI assistant.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section projects" id="events" aria-labelledby="events-heading">
+        <div class="section-inner">
+          <div class="projects-header reveal">
+            <div>
+              <div class="section-label">/ 04 WHAT WE'VE DONE</div>
+              <h2 class="section-title" id="events-heading">Built by the club.</h2>
+            </div>
+            <p class="section-kicker">Small, practical tools from the NeuraCET builder pipeline.</p>
+          </div>
+
+          <div class="project-list">
+            <article class="project-card reveal">
+              <div class="project-visual" data-number="01">
+                <img src="assets/leafscan.png" alt="LeafScan project screenshot" loading="lazy" decoding="async">
+              </div>
+              <div class="project-content">
+                <div class="project-count">01 / 05</div>
+                <div>
+                  <h3>LeafScan</h3>
+                  <p>A leaf image analysis tool that identifies what type of leaf it is and surfaces useful details from the image.</p>
+                </div>
+                <div class="project-bottom">
+                  <div class="tag-list">
+                    <span class="tag">Vision</span>
+                    <span class="tag">Plant AI</span>
+                  </div>
+                  <span class="badge">Built</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-visual" data-number="02">
+                <img src="assets/hydration-tracker.png" alt="Hydration Tracker project screenshot" loading="lazy" decoding="async">
+              </div>
+              <div class="project-content">
+                <div class="project-count">02 / 05</div>
+                <div>
+                  <h3>Hydration Tracker</h3>
+                  <p>A habit tracker for daily water intake, quick adds, goals, and streaks.</p>
+                </div>
+                <div class="project-bottom">
+                  <div class="tag-list">
+                    <span class="tag">Health</span>
+                    <span class="tag">Habit</span>
+                  </div>
+                  <span class="badge">Built</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-visual" data-number="03">
+                <img src="assets/resume-critiquer.png" alt="Resume Critiquer project screenshot" loading="lazy" decoding="async">
+              </div>
+              <div class="project-content">
+                <div class="project-count">03 / 05</div>
+                <div>
+                  <h3>Resume Critiquer</h3>
+                  <p>An entertainment-first resume roaster that critiques uploads with sharp AI feedback.</p>
+                </div>
+                <div class="project-bottom">
+                  <div class="tag-list">
+                    <span class="tag">AI Review</span>
+                    <span class="tag">Resume</span>
+                  </div>
+                  <span class="badge">Built</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-visual" data-number="04">
+                <img src="assets/qr-code-generator.png" alt="QR Code Generator project screenshot" loading="lazy" decoding="async">
+              </div>
+              <div class="project-content">
+                <div class="project-count">04 / 05</div>
+                <div>
+                  <h3>QR Code Generator</h3>
+                  <p>A simple utility that generates a QR code for any webpage link.</p>
+                </div>
+                <div class="project-bottom">
+                  <div class="tag-list">
+                    <span class="tag">Utility</span>
+                    <span class="tag">Web</span>
+                  </div>
+                  <span class="badge">Built</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-visual" data-number="05">
+                <img src="assets/auto-diagnostic-tool.png" alt="Auto Diagnostic Tool project screenshot" loading="lazy" decoding="async">
+              </div>
+              <div class="project-content">
+                <div class="project-count">05 / 05</div>
+                <div>
+                  <h3>Auto Diagnostic Tool</h3>
+                  <p>An AI vehicle diagnostic desk that points out likely problems and estimates the repair cost.</p>
+                </div>
+                <div class="project-bottom">
+                  <div class="tag-list">
+                    <span class="tag">Diagnostics</span>
+                    <span class="tag">AI</span>
+                  </div>
+                  <span class="badge">Built</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote-band reveal" aria-label="NeuraCET manifesto">
+        <svg viewBox="0 0 900 520" aria-hidden="true">
+          <defs>
+            <linearGradient id="quoteGradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7B61FF"></stop>
+              <stop offset="100%" stop-color="#00D4AA"></stop>
+            </linearGradient>
+          </defs>
+          <line x1="102" y1="284" x2="224" y2="154"></line>
+          <line x1="224" y1="154" x2="342" y2="210"></line>
+          <line x1="342" y1="210" x2="486" y2="126"></line>
+          <line x1="486" y1="126" x2="612" y2="236"></line>
+          <line x1="612" y1="236" x2="762" y2="166"></line>
+          <line x1="102" y1="284" x2="312" y2="360"></line>
+          <line x1="312" y1="360" x2="612" y2="236"></line>
+          <line x1="312" y1="360" x2="704" y2="402"></line>
+          <line x1="704" y1="402" x2="762" y2="166"></line>
+          <line x1="224" y1="154" x2="312" y2="360"></line>
+          <line x1="342" y1="210" x2="704" y2="402"></line>
+          <circle cx="102" cy="284" r="10"></circle>
+          <circle cx="224" cy="154" r="10"></circle>
+          <circle cx="342" cy="210" r="10"></circle>
+          <circle cx="486" cy="126" r="10"></circle>
+          <circle cx="612" cy="236" r="10"></circle>
+          <circle cx="762" cy="166" r="10"></circle>
+          <circle cx="312" cy="360" r="10"></circle>
+          <circle cx="704" cy="402" r="10"></circle>
+        </svg>
+        <div class="quote-content">
+          <blockquote class="quote">"The best way to understand <span class="quote-highlight">AI</span> is to build something real with it."</blockquote>
+          <div class="quote-attribution">— NeuraCET Team</div>
+        </div>
+      </section>
+
+      <section class="section" id="team" aria-labelledby="team-heading">
+        <div class="section-inner">
+          <div class="team-header reveal">
+            <div>
+              <div class="section-label">/ 05 THE PEOPLE</div>
+              <h2 class="section-title" id="team-heading">Builders, grouped by team.</h2>
+            </div>
+            <p class="section-kicker">Members are listed equally under the sub-team they work with.</p>
+          </div>
+
+          <div class="team-layout">
+            <article class="member-team-card reveal" data-team-number="01">
+              <h3>Technical</h3>
+              <ul class="member-list">
+                <li>
+                  <span class="member-avatar">KC</span>
+                  <span><span class="member-name">Kailas Chandran MS</span><span class="member-detail">IE, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">SK</span>
+                  <span><span class="member-name">S Kailas</span><span class="member-detail">EL, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">JJ</span>
+                  <span><span class="member-name">Joseph Jayan</span><span class="member-detail">CS, 1st year</span></span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="member-team-card reveal" data-team-number="02">
+              <h3>Outreach & Gemini</h3>
+              <ul class="member-list">
+                <li>
+                  <span class="member-avatar">AVS</span>
+                  <span><span class="member-name">Akshay V Sarma</span><span class="member-detail">IE, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">AG</span>
+                  <span><span class="member-name">Anjana George</span><span class="member-detail">IE, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">NN</span>
+                  <span><span class="member-name">Nihal Naseem RA</span><span class="member-detail">ECE, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">NG</span>
+                  <span><span class="member-name">Nakul G</span><span class="member-detail">EL, 1st year</span></span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="member-team-card reveal" data-team-number="03">
+              <h3>Design</h3>
+              <ul class="member-list">
+                <li>
+                  <span class="member-avatar">AK</span>
+                  <span><span class="member-name">Arun Krishna U</span><span class="member-detail">ECE, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">MB</span>
+                  <span><span class="member-name">Madhav B</span><span class="member-detail">IE, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">NR</span>
+                  <span><span class="member-name">Nandhu Ramesh</span><span class="member-detail">EL, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">ST</span>
+                  <span><span class="member-name">Sreesanth T</span><span class="member-detail">ECE, 1st year</span></span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="member-team-card reveal" data-team-number="04">
+              <h3>Content Media</h3>
+              <ul class="member-list">
+                <li>
+                  <span class="member-avatar">VN</span>
+                  <span><span class="member-name">Vishnusree N</span><span class="member-detail">CS, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">AC</span>
+                  <span><span class="member-name">Amit A Chengode</span><span class="member-detail">CS, 1st year</span></span>
+                </li>
+                <li>
+                  <span class="member-avatar">SH</span>
+                  <span><span class="member-name">Sanjay Harishankar</span><span class="member-detail">CS, 1st year</span></span>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq" id="faq" aria-labelledby="faq-heading">
+        <div class="section-inner faq-layout">
+          <div class="faq-intro reveal">
+            <div class="section-label">/ 06 FAQ</div>
+            <h2 class="section-title" id="faq-heading">Questions before launch?</h2>
+            <p class="section-kicker">Short answers for students wondering where they fit in the NeuraCET system.</p>
+          </div>
+
+          <div class="faq-list reveal">
+            <article class="faq-item is-open">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="true" aria-controls="faq-answer-1">
+                  <span class="faq-index">01</span>
+                  <span class="faq-question-text">Why join NeuraCET?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-1">
+                <div class="faq-answer-inner">
+                  <p>Join if you want to move beyond tutorials and actually build AI projects, agents, tools, and research-backed prototypes with a serious student community.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-2">
+                  <span class="faq-index">02</span>
+                  <span class="faq-question-text">Who can join?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-2">
+                <div class="faq-answer-inner">
+                  <p>Any CET student who is curious about AI, regardless of branch or year.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-3">
+                  <span class="faq-index">03</span>
+                  <span class="faq-question-text">Do I need prior AI or coding knowledge?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-3">
+                <div class="faq-answer-inner">
+                  <p>No. Prior knowledge helps, but it is not required. The club is designed to help beginners grow into builders through guided learning and hands-on work.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-4">
+                  <span class="faq-index">04</span>
+                  <span class="faq-question-text">Is NeuraCET only for CS students?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-4">
+                <div class="faq-answer-inner">
+                  <p>No. AI needs builders, designers, writers, researchers, organisers, and problem-solvers from every branch.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-5">
+                  <span class="faq-index">05</span>
+                  <span class="faq-question-text">What will members actually do?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-5">
+                <div class="faq-answer-inner">
+                  <p>Members will learn AI/ML concepts, build projects, attend workshops, contribute to open source, join hackathons, publish content, and collaborate on real-world solutions.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-6">
+                  <span class="faq-index">06</span>
+                  <span class="faq-question-text">Will there be workshops and hackathons?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-6">
+                <div class="faq-answer-inner">
+                  <p>Yes. The club will run build nights, workshops, prototype sessions, hackathon teams, and project showcases.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-7">
+                  <span class="faq-index">07</span>
+                  <span class="faq-question-text">Can first-year students join?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-7">
+                <div class="faq-answer-inner">
+                  <p>Yes. First-year students are welcome, especially if they are curious and willing to learn.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="faq-item">
+              <h3>
+                <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-8">
+                  <span class="faq-index">08</span>
+                  <span class="faq-question-text">How do I join?</span>
+                  <span class="faq-toggle" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-answer-8">
+                <div class="faq-answer-inner">
+                  <p>Use the Join section or application link provided on the website.</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section join" id="join" aria-labelledby="join-heading">
+        <div class="section-inner reveal">
+          <h2 class="join-title" id="join-heading">Ready to build?</h2>
+          <p class="join-copy">NeuraCET is open to all CET students. No gatekeeping. Just builders.</p>
+          <a class="button button-primary" href="mailto:neuracet@cet.ac.in?subject=Apply%20to%20Join%20NeuraCET">Coming Soon</a>
+          <div class="socials" aria-label="Social links">
+            <a class="social-link" href="https://github.com/NeuraCET/" aria-label="NeuraCET GitHub">
+              <span class="social-icon" aria-hidden="true">G</span>
+              <span>GitHub · @neuracet</span>
+            </a>
+            <a class="social-link" href="https://www.linkedin.com/in/neuracet-a87092410/" aria-label="NeuraCET LinkedIn">
+              <span class="social-icon" aria-hidden="true">in</span>
+              <span>LinkedIn · NeuraCET</span>
+            </a>
+            <a class="social-link" href="https://www.instagram.com/neuracet?igsh=MTg4MzYxcm53Nm44" aria-label="NeuraCET Instagram">
+              <span class="social-icon" aria-hidden="true">IG</span>
+              <span>Instagram · @neuracet</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>NEURACET © 2026</div>
+      <div class="tagline-badge" aria-label="Build Learn Ship Repeat">
+        <div class="tagline-ring" aria-hidden="true" data-text="BUILD · LEARN · SHIP · REPEAT · "></div>
+      </div>
+      <div class="footer-location">CET, Trivandrum, Kerala</div>
+    </footer>
+  </div>
+
+  <script>
+    const nav = document.querySelector(".nav");
+    const heroTitle = document.querySelector(".hero-title");
+    const typeTarget = document.querySelector(".type-target");
+    const cursor = document.querySelector(".cursor-dot");
+    const logoLoader = document.querySelector(".logo-loader");
+    const neuralField = document.querySelector(".neural-field");
+    const interactiveItems = document.querySelectorAll("a, button, .pillar-card, .project-card, .member-team-card, .faq-item");
+    const revealItems = document.querySelectorAll(".reveal");
+    const taglineRing = document.querySelector(".tagline-ring");
+    const faqItems = document.querySelectorAll(".faq-item");
+    const loaderStartedAt = performance.now();
+
+    function finishLogoLoader() {
+      if (!logoLoader) {
+        return;
+      }
+
+      const delay = Math.max(0, 2200 - (performance.now() - loaderStartedAt));
+
+      window.setTimeout(() => {
+        document.body.classList.add("is-loaded");
+        window.setTimeout(() => logoLoader.remove(), 520);
+      }, delay);
+    }
+
+    if (document.readyState === "complete") {
+      finishLogoLoader();
+    } else {
+      window.addEventListener("load", finishLogoLoader, { once: true });
+    }
+
+    function initNeuralField(canvas) {
+      const ctx = canvas.getContext("2d", { alpha: true });
+
+      if (!ctx) {
+        return;
+      }
+
+      const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const palette = [
+        { r: 247, g: 242, b: 232 },
+        { r: 255, g: 90, b: 31 },
+        { r: 247, g: 255, b: 0 }
+      ];
+      const pointer = {
+        x: 0,
+        y: 0,
+        targetX: 0,
+        targetY: 0,
+        active: false,
+        lastMove: 0
+      };
+
+      let width = 0;
+      let height = 0;
+      let nodes = [];
+      let animationFrame = null;
+      let resizeTimer = null;
+
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+      const random = (min, max) => min + Math.random() * (max - min);
+      const rgba = (color, alpha) => `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
+
+      function makeNode(index) {
+        const margin = Math.max(48, Math.min(width, height) * 0.08);
+        const depth = random(0.62, 1.34);
+        const color = index % 11 === 0 ? palette[2] : index % 4 === 0 ? palette[1] : palette[0];
+        const x = random(-margin, width + margin);
+        const y = random(-margin, height + margin);
+
+        return {
+          x,
+          y,
+          baseX: x,
+          baseY: y,
+          vx: random(-0.12, 0.12) * depth,
+          vy: random(-0.1, 0.1) * depth,
+          phase: random(0, Math.PI * 2),
+          radius: random(1.15, 2.7) * depth,
+          depth,
+          color,
+          signal: Math.random()
+        };
+      }
+
+      function buildNodes() {
+        const count = Math.round(clamp((width * height) / 18500, 34, 92));
+        nodes = Array.from({ length: count }, (_, index) => makeNode(index));
+      }
+
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        if (!pointer.targetX && !pointer.targetY) {
+          pointer.x = width * 0.5;
+          pointer.y = height * 0.5;
+          pointer.targetX = pointer.x;
+          pointer.targetY = pointer.y;
+        }
+
+        buildNodes();
+        draw(performance.now());
+      }
+
+      function updateNodes(time, now) {
+        const hoverAge = now - pointer.lastMove;
+        const hoverStrength = pointer.active && hoverAge < 1600 ? 1 - hoverAge / 1600 : 0;
+        const hoverRadius = clamp(Math.min(width, height) * 0.34, 150, 280);
+        const margin = 88;
+
+        pointer.x += (pointer.targetX - pointer.x) * 0.16;
+        pointer.y += (pointer.targetY - pointer.y) * 0.16;
+
+        nodes.forEach((node) => {
+          node.baseX += node.vx;
+          node.baseY += node.vy;
+
+          if (node.baseX < -margin || node.baseX > width + margin) {
+            node.vx *= -1;
+          }
+
+          if (node.baseY < -margin || node.baseY > height + margin) {
+            node.vy *= -1;
+          }
+
+          const orbitX = Math.sin(time * 0.46 + node.phase) * 18 * node.depth;
+          const orbitY = Math.cos(time * 0.38 + node.phase * 0.8) * 14 * node.depth;
+
+          node.x += (node.baseX + orbitX - node.x) * 0.028;
+          node.y += (node.baseY + orbitY - node.y) * 0.028;
+
+          if (hoverStrength <= 0) {
+            return;
+          }
+
+          const dx = node.x - pointer.x;
+          const dy = node.y - pointer.y;
+          const distance = Math.hypot(dx, dy) || 1;
+
+          if (distance < hoverRadius) {
+            const force = Math.pow(1 - distance / hoverRadius, 2) * 48 * hoverStrength * node.depth;
+            node.x += (dx / distance) * force;
+            node.y += (dy / distance) * force;
+          }
+        });
+      }
+
+      function drawConnections(time) {
+        const maxDistance = clamp(Math.min(width, height) * 0.28, 135, 245);
+        const maxDistanceSq = maxDistance * maxDistance;
+
+        for (let i = 0; i < nodes.length; i += 1) {
+          for (let j = i + 1; j < nodes.length; j += 1) {
+            const a = nodes[i];
+            const b = nodes[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const distanceSq = dx * dx + dy * dy;
+
+            if (distanceSq > maxDistanceSq) {
+              continue;
+            }
+
+            const distance = Math.sqrt(distanceSq);
+            const proximity = 1 - distance / maxDistance;
+            const pulse = 0.72 + Math.sin(time * 2.2 + a.phase + b.phase) * 0.28;
+            const color = (i + j) % 13 === 0 ? palette[2] : (i + j) % 5 === 0 ? palette[1] : palette[0];
+
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.lineWidth = 0.65 + proximity * 0.82;
+            ctx.strokeStyle = rgba(color, proximity * pulse * 0.19);
+            ctx.stroke();
+
+            if ((i + j) % 17 === 0) {
+              const progress = (time * 0.16 + a.signal + b.signal) % 1;
+              const signalX = a.x + (b.x - a.x) * progress;
+              const signalY = a.y + (b.y - a.y) * progress;
+
+              ctx.beginPath();
+              ctx.arc(signalX, signalY, 1.2 + proximity * 1.6, 0, Math.PI * 2);
+              ctx.fillStyle = rgba(color, proximity * 0.44);
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      function drawNodes(time) {
+        nodes.forEach((node, index) => {
+          const pulse = 0.68 + Math.sin(time * 2.4 + node.phase) * 0.32;
+
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.radius + pulse * 0.95, 0, Math.PI * 2);
+          ctx.fillStyle = rgba(node.color, 0.3 + pulse * 0.22);
+          ctx.fill();
+
+          if (index % 9 === 0) {
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.radius * 3.2 + pulse * 1.8, 0, Math.PI * 2);
+            ctx.lineWidth = 0.85;
+            ctx.strokeStyle = rgba(node.color, 0.12 + pulse * 0.1);
+            ctx.stroke();
+          }
+        });
+      }
+
+      function draw(now) {
+        const isReduced = reduceMotionQuery.matches;
+        const time = isReduced ? 0 : now * 0.001;
+
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalCompositeOperation = "lighter";
+
+        if (!isReduced) {
+          updateNodes(time, now);
+        }
+
+        drawConnections(time);
+        drawNodes(time);
+        ctx.globalCompositeOperation = "source-over";
+      }
+
+      function render(now) {
+        draw(now);
+
+        if (!reduceMotionQuery.matches) {
+          animationFrame = window.requestAnimationFrame(render);
+        }
+      }
+
+      function start() {
+        if (animationFrame) {
+          window.cancelAnimationFrame(animationFrame);
+        }
+
+        if (reduceMotionQuery.matches) {
+          draw(performance.now());
+          return;
+        }
+
+        animationFrame = window.requestAnimationFrame(render);
+      }
+
+      resizeCanvas();
+      start();
+
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(resizeCanvas, 120);
+      }, { passive: true });
+
+      window.addEventListener("pointermove", (event) => {
+        pointer.targetX = event.clientX;
+        pointer.targetY = event.clientY;
+        pointer.active = true;
+        pointer.lastMove = performance.now();
+      }, { passive: true });
+
+      document.addEventListener("pointerleave", () => {
+        pointer.active = false;
+      });
+
+      document.addEventListener("pointerenter", () => {
+        pointer.active = true;
+      });
+
+      if (reduceMotionQuery.addEventListener) {
+        reduceMotionQuery.addEventListener("change", start);
+      } else {
+        reduceMotionQuery.addListener(start);
+      }
+    }
+
+    if (neuralField) {
+      initNeuralField(neuralField);
+    }
+
+    function syncNavState() {
+      if (!nav) return;
+      nav.classList.toggle("scrolled", window.scrollY > 24);
+    }
+
+    syncNavState();
+    window.addEventListener("scroll", syncNavState, { passive: true });
+
+    if (heroTitle && typeTarget) {
+      const typeLive = typeTarget.querySelector(".type-live") || typeTarget;
+      const words = (typeTarget.dataset.words || "AI Agents.|Smart Systems.|Real Solutions.|The Future.").split("|");
+      let wordIndex = 0;
+      let charIndex = words[0].length;
+      let isDeleting = false;
+      let heroResizeTimer;
+
+      function stabilizeHeroTitle() {
+        const currentText = typeLive.textContent;
+        heroTitle.style.minHeight = "";
+
+        let maxHeight = heroTitle.offsetHeight;
+        words.forEach((word) => {
+          typeLive.textContent = word;
+          maxHeight = Math.max(maxHeight, heroTitle.offsetHeight);
+        });
+
+        typeLive.textContent = currentText;
+        heroTitle.style.minHeight = `${Math.ceil(maxHeight)}px`;
+      }
+
+      function typeLoop() {
+        const currentWord = words[wordIndex];
+        typeLive.textContent = currentWord.slice(0, charIndex);
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          isDeleting = true;
+          window.setTimeout(typeLoop, 1450);
+          return;
+        }
+
+        if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+
+        charIndex += isDeleting ? -1 : 1;
+        window.setTimeout(typeLoop, isDeleting ? 34 : 68);
+      }
+
+      stabilizeHeroTitle();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(stabilizeHeroTitle);
+      }
+
+      window.addEventListener("resize", () => {
+        window.clearTimeout(heroResizeTimer);
+        heroResizeTimer = window.setTimeout(stabilizeHeroTitle, 120);
+      }, { passive: true });
+
+      window.setTimeout(typeLoop, 900);
+    }
+
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index % 5, 4) * 70}ms`;
+    });
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.16,
+        rootMargin: "0px 0px -8% 0px"
+      });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("in-view"));
+    }
+
+    if (cursor && window.matchMedia("(pointer: fine)").matches) {
+      window.addEventListener("pointermove", (event) => {
+        cursor.style.left = `${event.clientX}px`;
+        cursor.style.top = `${event.clientY}px`;
+      }, { passive: true });
+
+      document.addEventListener("pointerleave", () => {
+        cursor.style.opacity = "0";
+      });
+
+      document.addEventListener("pointerenter", () => {
+        cursor.style.opacity = "1";
+      });
+
+      interactiveItems.forEach((item) => {
+        item.addEventListener("pointerenter", () => cursor.classList.add("is-hovering"));
+        item.addEventListener("pointerleave", () => cursor.classList.remove("is-hovering"));
+      });
+    }
+
+    if (taglineRing) {
+      const letters = taglineRing.dataset.text.trim().split("");
+      const angle = 360 / letters.length;
+
+      letters.forEach((letter, index) => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        span.style.transform = `rotate(${angle * index}deg)`;
+        taglineRing.appendChild(span);
+      });
+    }
+
+    faqItems.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+
+      if (!button) {
+        return;
+      }
+
+      button.addEventListener("click", () => {
+        const isOpen = item.classList.toggle("is-open");
+        button.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
+
+    document.querySelectorAll('.social-link[href="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => event.preventDefault());
+    });
+  </script>
+</body>
+</html>
