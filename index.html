@@ -461,11 +461,10 @@
 
     .type-target {
       color: var(--accent);
-      text-decoration: underline;
-      text-decoration-color: var(--accent-2);
-      text-decoration-thickness: clamp(8px, 1.1vw, 18px);
-      text-underline-offset: -0.04em;
-      text-decoration-skip-ink: none;
+      text-decoration: none;
+      -webkit-text-stroke: 4px var(--bg);
+      text-shadow: 6px 6px 0 var(--accent-2);
+      paint-order: stroke fill;
     }
 
     .type-cursor {
@@ -586,12 +585,12 @@
     .marquee span {
       display: inline-flex;
       align-items: center;
-      padding: 17px 0;
+      padding: 10px 0;
       color: inherit;
-      font-family: var(--display);
+      font-family: var(--body);
       font-size: clamp(1rem, 2vw, 1.55rem);
       font-weight: 800;
-      letter-spacing: -0.025em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -646,7 +645,7 @@
       display: grid;
       grid-template-columns: minmax(280px, 0.72fr) minmax(360px, 1fr);
       gap: clamp(34px, 6vw, 86px);
-      align-items: end;
+      align-items: center; 
     }
 
     .stats {
@@ -689,10 +688,10 @@
       margin: 0;
       color: var(--text);
       font-family: var(--display);
-      font-size: clamp(2.25rem, 5.2vw, 5.8rem);
-      font-weight: 800;
-      line-height: 0.92;
-      letter-spacing: -0.075em;
+      font-size: clamp(1.75rem, 3.8vw, 3.5rem); 
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
     }
 
     .manifesto-copy .accent {
@@ -892,20 +891,6 @@
       transition: opacity 170ms ease;
     }
 
-    .pillar-card::after {
-      content: "";
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 42px;
-      height: 42px;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 1;
-      transition: transform 170ms ease;
-    }
-
     .pillar-card:hover {
       transform: translate(-5px, -5px);
       border-color: var(--border-strong);
@@ -915,10 +900,6 @@
 
     .pillar-card:hover::before {
       opacity: 0.13;
-    }
-
-    .pillar-card:hover::after {
-      transform: scale(1.08);
     }
 
     .pillar-card:nth-child(1),
@@ -967,9 +948,9 @@
       justify-content: space-between;
       gap: 18px;
       margin-top: 42px;
-      color: rgba(11, 11, 9, 0.62);
+      color: var(--accent);
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.8rem;
       font-weight: 900;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -986,12 +967,12 @@
     }
 
     .separator span {
-      padding: 21px 0;
+      padding: 12px 0;
       color: inherit;
-      font-family: var(--display);
+      font-family: var(--body);
       font-size: clamp(1.35rem, 3.8vw, 3.4rem);
       font-weight: 800;
-      letter-spacing: -0.055em;
+      letter-spacing: 0.05em;
     }
 
     .roadmap {
@@ -1288,6 +1269,18 @@
     .badge {
       border-width: 2px;
       background: var(--accent-2);
+    }
+    
+    /* Interactive hover effects specifically for badge links */
+    a.badge {
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+      cursor: none; 
+    }
+    
+    a.badge:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 var(--ink);
+      background: var(--accent);
     }
 
     .quote-band {
@@ -2229,7 +2222,7 @@
           </div>
           <div>
             <div class="section-label" id="about-heading">/ 00 ABOUT</div>
-            <p class="manifesto-copy">NeuraCET isn't a coding club. It's an applied AI movement at CET. We build agents, ship projects, contribute to open source, and push students from prompt users to <span class="accent">AI engineers.</span></p>
+            <p class="manifesto-copy">NeuraCET is more than a coding club—it's an applied AI movement at CET. We build agents, ship real-world projects, and transform students from everyday prompt users into skilled <span class="accent">AI engineers.</span></p>
           </div>
         </div>
         <div class="section-rule" aria-hidden="true"></div>
@@ -2389,7 +2382,7 @@
                     <span class="tag">Vision</span>
                     <span class="tag">Plant AI</span>
                   </div>
-                  <span class="badge">Built</span>
+                  <a href="https://s-kailas.github.io/leaf-d/" class="badge" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
                 </div>
               </div>
             </article>
@@ -2409,7 +2402,7 @@
                     <span class="tag">Health</span>
                     <span class="tag">Habit</span>
                   </div>
-                  <span class="badge">Built</span>
+                  <a href="https://drive.google.com/file/d/1A04t1iENZao3_j4UDNK44sj8SOy73Oqj/view?usp=sharing" class="badge" target="_blank" rel="noopener noreferrer">Drive Demo ↗</a>
                 </div>
               </div>
             </article>
@@ -2429,7 +2422,7 @@
                     <span class="tag">AI Review</span>
                     <span class="tag">Resume</span>
                   </div>
-                  <span class="badge">Built</span>
+                  <a href="https://resume-roaster-qu7w8q6lyvawtrkcbrhzdp.streamlit.app/" class="badge" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
                 </div>
               </div>
             </article>
@@ -2449,7 +2442,7 @@
                     <span class="tag">Utility</span>
                     <span class="tag">Web</span>
                   </div>
-                  <span class="badge">Built</span>
+                  <a href="https://qr-generator-rgui.onrender.com/" class="badge" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
                 </div>
               </div>
             </article>
@@ -2469,7 +2462,7 @@
                     <span class="tag">Diagnostics</span>
                     <span class="tag">AI</span>
                   </div>
-                  <span class="badge">Built</span>
+                  <a href="https://subtle-cupcake-b378b4.netlify.app/" class="badge" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
                 </div>
               </div>
             </article>
