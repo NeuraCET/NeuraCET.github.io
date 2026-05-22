@@ -190,37 +190,9 @@ This repository hosts the official **NeuraCET** website — a single-page, zero-
 
 ---
 
-## 🚀 Getting Started
+## 🌐 Live Site
 
-### Run Locally
-
-No build tools. No package managers. Just open the file.
-
-```bash
-# Clone the repository
-git clone https://github.com/NeuraCET/NeuraCET.github.io.git
-
-# Navigate into the project
-cd NeuraCET.github.io
-
-# Open in your browser
-open index.html
-# or
-xdg-open index.html        # Linux
-start index.html            # Windows
-```
-
-Or use a local server for the best experience:
-
-```bash
-# Python
-python3 -m http.server 8000
-
-# Node.js (npx)
-npx -y serve .
-```
-
-Then visit `http://localhost:8000`
+The website is live at **[neuracet.github.io](https://neuracet.github.io)**
 
 ---
 
