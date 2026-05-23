@@ -148,12 +148,12 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: clamp(136px, 18vw, 196px);
+      width: clamp(220px, 28vw, 340px);
       aspect-ratio: 1;
-      border: 2px solid var(--border-strong);
-      border-radius: 28px;
+      border: 3px solid var(--border-strong);
+      border-radius: 36px;
       background: var(--surface);
-      box-shadow: 8px 8px 0 var(--accent);
+      box-shadow: 12px 12px 0 var(--accent), 0 0 48px rgba(255, 90, 31, 0.16);
       animation: logoCardIn 920ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
     }
 
@@ -165,15 +165,15 @@
     }
 
     .logo-loader-card::before {
-      inset: 14px;
+      inset: 12px;
       border: 1px solid rgba(11, 11, 9, 0.18);
-      border-radius: 20px;
+      border-radius: 26px;
     }
 
     .logo-loader-card::after {
-      inset: -11px;
+      inset: -14px;
       border: 2px solid rgba(247, 255, 0, 0.72);
-      border-radius: 36px;
+      border-radius: 48px;
       opacity: 0;
       animation: logoSignal 1250ms ease-out infinite;
     }
@@ -181,19 +181,19 @@
     .logo-loader img {
       position: relative;
       z-index: 1;
-      width: 78%;
+      width: 88%;
       height: auto;
-      border-radius: 12px;
+      border-radius: 18px;
       filter: contrast(1.08);
       animation: logoPulse 1250ms ease-in-out infinite;
     }
 
     .loader-line {
       position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 16px;
-      height: 3px;
+      left: 22px;
+      right: 22px;
+      bottom: 20px;
+      height: 4px;
       overflow: hidden;
       border-radius: 999px;
       background: rgba(11, 11, 9, 0.14);
@@ -591,6 +591,7 @@
       font-size: clamp(1rem, 2vw, 1.55rem);
       font-weight: 800;
       letter-spacing: 0.05em;
+      word-spacing: 0.48em;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -802,7 +803,7 @@
 
     .mv-panel h3 {
       max-width: 520px;
-      margin: 0;
+      margin: 0 0 clamp(22px, 3vw, 34px);
       font-family: var(--display);
       font-size: clamp(3.2rem, 7vw, 7.2rem);
       font-weight: 800;
@@ -845,6 +846,22 @@
       line-height: 0.82;
       letter-spacing: -0.095em;
       text-transform: uppercase;
+    }
+
+    .title-accent-users {
+      color: #00d4aa;
+      text-shadow: 0 0 20px rgba(0, 212, 170, 0.18);
+    }
+
+    .title-accent-builders,
+    .title-accent-one {
+      color: var(--accent);
+      text-shadow: 0 0 24px rgba(255, 90, 31, 0.34), 3px 3px 0 rgba(247, 255, 0, 0.34);
+    }
+
+    .title-accent-four {
+      color: var(--accent-2);
+      text-shadow: 0 0 20px rgba(247, 255, 0, 0.22);
     }
 
     .section-kicker {
@@ -973,6 +990,7 @@
       font-size: clamp(1.35rem, 3.8vw, 3.4rem);
       font-weight: 800;
       letter-spacing: 0.05em;
+      word-spacing: 0.5em;
     }
 
     .roadmap {
@@ -996,32 +1014,36 @@
       position: relative;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: clamp(18px, 2.2vw, 28px);
+      align-items: center;
+      padding: 10px 0 30px;
     }
 
     .roadmap-track::before {
       content: "";
       position: absolute;
-      left: 12%;
-      right: 12%;
-      top: 52px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--text));
-      opacity: 0.66;
+      left: 8%;
+      right: 8%;
+      top: 46%;
+      z-index: 0;
+      height: 3px;
+      background: linear-gradient(90deg, rgba(255, 90, 31, 0.82), var(--accent-2), rgba(247, 255, 0, 0.72));
+      opacity: 0.9;
       pointer-events: none;
     }
 
     .roadmap-step {
       position: relative;
-      min-height: 360px;
+      z-index: 1;
+      min-height: clamp(370px, 33vw, 430px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 38px;
+      gap: 26px;
       overflow: hidden;
-      padding: 26px;
+      padding: clamp(24px, 2.7vw, 34px);
       border: 2px solid var(--border-strong);
-      border-radius: var(--radius);
+      border-radius: 24px;
       background: var(--surface);
       color: var(--ink);
       isolation: isolate;
@@ -1036,39 +1058,63 @@
       background-image:
         linear-gradient(rgba(11, 11, 9, 0.08) 1px, transparent 1px),
         linear-gradient(90deg, rgba(11, 11, 9, 0.08) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background-size: 27px 27px;
     }
 
     .roadmap-step::after {
-      content: "";
-      position: absolute;
-      top: 39px;
-      left: 50%;
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: var(--accent-2);
-      box-shadow: 0 0 0 10px var(--surface), 0 0 0 12px var(--ink);
-      transform: translateX(-50%);
+      content: none;
+    }
+
+    .roadmap-step:nth-child(1) {
+      background: #f3efe2;
+      box-shadow: none;
     }
 
     .roadmap-step:nth-child(2) {
-      background: #fffaf0;
-      transform: translateY(28px);
+      color: var(--ink);
+      border-color: var(--border-strong);
+      background:
+        linear-gradient(135deg, rgba(247, 255, 0, 0.48) 0%, rgba(247, 255, 0, 0.16) 28%, rgba(255, 90, 31, 0.72) 100%),
+        #ffe2a3;
+      box-shadow: 12px 12px 0 rgba(182, 204, 0, 0.9);
+      transform: translateY(34px);
+    }
+
+    .roadmap-step:nth-child(2)::before {
+      background-image:
+        linear-gradient(rgba(11, 11, 9, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 11, 9, 0.1) 1px, transparent 1px);
+    }
+
+    .roadmap-step:nth-child(3)::before {
+      background-image:
+        linear-gradient(rgba(247, 242, 232, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247, 242, 232, 0.12) 1px, transparent 1px);
     }
 
     .roadmap-step:nth-child(3) {
-      background: var(--accent);
+      color: var(--text);
+      border-color: var(--accent-2);
+      background:
+        linear-gradient(100deg, rgba(247, 255, 0, 0.05) 0%, rgba(255, 90, 31, 0.26) 100%),
+        #11110f;
+      box-shadow: 9px 9px 0 var(--accent-2), 18px 18px 0 rgba(247, 255, 0, 0.98);
+      transform: translateY(-8px);
     }
 
     .roadmap-step:hover {
       transform: translate(-5px, -5px);
-      box-shadow: 9px 9px 0 var(--accent-2);
+      box-shadow: 8px 8px 0 var(--accent);
     }
 
     .roadmap-step:nth-child(2):hover {
-      transform: translate(-5px, 23px);
+      transform: translate(-5px, 29px);
+      box-shadow: 14px 14px 0 rgba(182, 204, 0, 0.95);
+    }
+
+    .roadmap-step:nth-child(3):hover {
+      transform: translate(-5px, -13px);
+      box-shadow: 10px 10px 0 var(--accent-2), 20px 20px 0 rgba(247, 255, 0, 0.98);
     }
 
     .roadmap-meta {
@@ -1080,7 +1126,7 @@
       gap: 14px;
       color: rgba(11, 11, 9, 0.62);
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: clamp(0.72rem, 0.9vw, 0.82rem);
       font-weight: 900;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -1088,18 +1134,41 @@
 
     .roadmap-number {
       font-family: var(--display);
-      font-size: clamp(6rem, 12vw, 11rem);
+      font-size: clamp(8.5rem, 15vw, 13.4rem);
       font-weight: 800;
-      line-height: 0.72;
-      letter-spacing: -0.12em;
+      line-height: 0.68;
+      letter-spacing: -0.13em;
+    }
+
+    .roadmap-step:nth-child(3) .roadmap-meta,
+    .roadmap-step:nth-child(3) p {
+      color: rgba(247, 242, 232, 0.76);
+    }
+
+    .roadmap-step:nth-child(2) .roadmap-meta,
+    .roadmap-step:nth-child(2) p {
+      color: rgba(11, 11, 9, 0.68);
+    }
+
+    .roadmap-step:nth-child(2) .roadmap-number {
+      color: var(--ink);
+    }
+
+    .roadmap-step:nth-child(3) .roadmap-number {
+      color: var(--accent);
+      text-shadow: 6px 6px 0 var(--accent-2);
+    }
+
+    .roadmap-step:nth-child(3) h3 {
+      text-shadow: 3px 3px 0 rgba(247, 242, 232, 0.18);
     }
 
     .roadmap-step h3 {
-      margin: 0 0 14px;
+      margin: 0 0 18px;
       font-family: var(--display);
-      font-size: clamp(2.3rem, 4.2vw, 4.4rem);
-      line-height: 0.84;
-      letter-spacing: -0.08em;
+      font-size: clamp(3rem, 5vw, 5.3rem);
+      line-height: 0.78;
+      letter-spacing: -0.095em;
       text-transform: uppercase;
     }
 
@@ -1890,7 +1959,8 @@
       }
 
       .mv-panel.mission-panel,
-      .roadmap-step:nth-child(2) {
+      .roadmap-step:nth-child(2),
+      .roadmap-step:nth-child(3) {
         transform: none;
       }
 
@@ -1904,12 +1974,11 @@
         background: linear-gradient(180deg, var(--accent), var(--accent-2), var(--text));
       }
 
-      .roadmap-step::after {
-        left: 38px;
-        transform: translateX(-50%);
+      .roadmap-step:nth-child(2):hover {
+        transform: translate(-5px, -5px);
       }
 
-      .roadmap-step:nth-child(2):hover {
+      .roadmap-step:nth-child(3):hover {
         transform: translate(-5px, -5px);
       }
 
@@ -2236,7 +2305,7 @@
           <div class="mv-header reveal">
             <div>
               <div class="section-label">/ 01 MISSION & VISION</div>
-              <h2 class="section-title" id="mission-heading">From AI users to AI builders.</h2>
+              <h2 class="section-title" id="mission-heading">From AI <span class="title-accent-users">users</span> to AI <span class="title-accent-builders">builders</span>.</h2>
             </div>
             <p class="section-kicker">A manifesto for students who want to build, publish, collaborate, and solve real problems.</p>
           </div>
@@ -2245,15 +2314,15 @@
             <article class="mv-panel mission-panel reveal" data-ghost="01">
               <div class="mv-label"><span>MISSION</span><span>/ 01</span></div>
               <div>
-                <h3>Make AI real.</h3>
-                <p>To help CET students move from passive AI users to active AI builders through hands-on projects, workshops, research, open-source contribution, and real-world problem solving.</p>
+                <h3>Build real AI skills.</h3>
+                <p>To help CET students move from passive AI users to active AI builders through hands-on projects, workshops, research, open-source contribution, and real-world problem solving, with an eventual goal of training a campus assistant on CET's NVIDIA A100 HPC.</p>
               </div>
             </article>
 
             <article class="mv-panel vision-panel reveal" data-ghost="02">
               <div class="mv-label"><span>VISION</span><span>/ 02</span></div>
               <div>
-                <h3>Build the campus nerve center.</h3>
+                <h3>Build a campus AI community.</h3>
                 <p>To make NeuraCET the central AI innovation community of CET, where students from every branch can learn, build, publish, collaborate, and create AI systems that solve meaningful problems.</p>
               </div>
             </article>
@@ -2266,7 +2335,7 @@
           <div class="pillars-header reveal">
             <div>
               <div class="section-label">/ 02 SUB-TEAMS</div>
-              <h2 class="section-title" id="pillars-heading">Four teams. One nervous system.</h2>
+              <h2 class="section-title" id="pillars-heading"><span class="title-accent-four">Four</span> teams. <span class="title-accent-one">One</span> nervous system.</h2>
             </div>
             <p class="section-kicker">Each sub-team gives the club a focused way to build, communicate, and grow.</p>
           </div>
@@ -2523,15 +2592,15 @@
               <ul class="member-list">
                 <li>
                   <span class="member-avatar">KC</span>
-                  <span><span class="member-name">Kailas Chandran MS</span><span class="member-detail">IE, 1st year</span></span>
+                  <span><span class="member-name">Kailas Chandran MS</span><span class="member-detail">IE, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">SK</span>
-                  <span><span class="member-name">S Kailas</span><span class="member-detail">EL, 1st year</span></span>
+                  <span><span class="member-name">S Kailas</span><span class="member-detail">EL, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">JJ</span>
-                  <span><span class="member-name">Joseph Jayan</span><span class="member-detail">CS, 1st year</span></span>
+                  <span><span class="member-name">Joseph Jayan</span><span class="member-detail">CS, 2nd year</span></span>
                 </li>
               </ul>
             </article>
@@ -2541,19 +2610,19 @@
               <ul class="member-list">
                 <li>
                   <span class="member-avatar">AVS</span>
-                  <span><span class="member-name">Akshay V Sarma</span><span class="member-detail">IE, 1st year</span></span>
+                  <span><span class="member-name">Akshay V Sarma</span><span class="member-detail">IE, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">AG</span>
-                  <span><span class="member-name">Anjana George</span><span class="member-detail">IE, 1st year</span></span>
+                  <span><span class="member-name">Anjana George</span><span class="member-detail">IE, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">NN</span>
-                  <span><span class="member-name">Nihal Naseem RA</span><span class="member-detail">ECE, 1st year</span></span>
+                  <span><span class="member-name">Nihal Naseem RA</span><span class="member-detail">ECE, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">NG</span>
-                  <span><span class="member-name">Nakul G</span><span class="member-detail">EL, 1st year</span></span>
+                  <span><span class="member-name">Nakul G</span><span class="member-detail">EL, 2nd year</span></span>
                 </li>
               </ul>
             </article>
@@ -2563,19 +2632,19 @@
               <ul class="member-list">
                 <li>
                   <span class="member-avatar">AK</span>
-                  <span><span class="member-name">Arun Krishna U</span><span class="member-detail">ECE, 1st year</span></span>
+                  <span><span class="member-name">Arun Krishna U</span><span class="member-detail">ECE, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">MB</span>
-                  <span><span class="member-name">Madhav B</span><span class="member-detail">IE, 1st year</span></span>
+                  <span><span class="member-name">Madhav B</span><span class="member-detail">IE, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">NR</span>
-                  <span><span class="member-name">Nandhu Ramesh</span><span class="member-detail">EL, 1st year</span></span>
+                  <span><span class="member-name">Nandhu Ramesh</span><span class="member-detail">EL, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">ST</span>
-                  <span><span class="member-name">Sreesanth T</span><span class="member-detail">ECE, 1st year</span></span>
+                  <span><span class="member-name">Sreesanth T</span><span class="member-detail">ECE, 2nd year</span></span>
                 </li>
               </ul>
             </article>
@@ -2585,15 +2654,15 @@
               <ul class="member-list">
                 <li>
                   <span class="member-avatar">VN</span>
-                  <span><span class="member-name">Vishnusree N</span><span class="member-detail">CS, 1st year</span></span>
+                  <span><span class="member-name">Vishnusree N</span><span class="member-detail">CS, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">AC</span>
-                  <span><span class="member-name">Amit A Chengode</span><span class="member-detail">CS, 1st year</span></span>
+                  <span><span class="member-name">Amit A Chengode</span><span class="member-detail">CS, 2nd year</span></span>
                 </li>
                 <li>
                   <span class="member-avatar">SH</span>
-                  <span><span class="member-name">Sanjay Harishankar</span><span class="member-detail">CS, 1st year</span></span>
+                  <span><span class="member-name">Sanjay Harishankar</span><span class="member-detail">CS, 2nd year</span></span>
                 </li>
               </ul>
             </article>
@@ -2739,15 +2808,15 @@
           <p class="join-copy">NeuraCET is open to all CET students. No gatekeeping. Just builders.</p>
           <a class="button button-primary" href="mailto:neuracet@cet.ac.in?subject=Apply%20to%20Join%20NeuraCET">Coming Soon</a>
           <div class="socials" aria-label="Social links">
-            <a class="social-link" href="https://github.com/NeuraCET/" aria-label="NeuraCET GitHub">
+            <a class="social-link" href="https://github.com/NeuraCET/" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET GitHub">
               <span class="social-icon" aria-hidden="true">G</span>
               <span>GitHub · @neuracet</span>
             </a>
-            <a class="social-link" href="https://www.linkedin.com/in/neuracet/" aria-label="NeuraCET LinkedIn">
+            <a class="social-link" href="https://www.linkedin.com/in/neuracet/" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET LinkedIn">
               <span class="social-icon" aria-hidden="true">in</span>
               <span>LinkedIn · NeuraCET</span>
             </a>
-            <a class="social-link" href="https://www.instagram.com/neuracet?igsh=MTg4MzYxcm53Nm44" aria-label="NeuraCET Instagram">
+            <a class="social-link" href="https://www.instagram.com/neuracet?igsh=MTg4MzYxcm53Nm44" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET Instagram">
               <span class="social-icon" aria-hidden="true">IG</span>
               <span>Instagram · @neuracet</span>
             </a>
