@@ -1352,6 +1352,99 @@
       background: var(--accent);
     }
 
+    /* Live Pipeline / Gantt Section */
+    .pipeline-wrapper {
+      margin-top: 32px;
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--card);
+      overflow-x: auto;
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    
+    .pipeline-table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+    }
+    
+    .pipeline-header th {
+      padding: 16px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      text-align: left;
+      border-bottom: 2px solid var(--border-strong);
+      color: var(--soft-text);
+    }
+    
+    .pipeline-header .time-slot {
+      text-align: center;
+      border-left: 1px dashed var(--border);
+    }
+    
+    .pipeline-row {
+      border-bottom: 1px solid var(--border);
+      transition: background 140ms ease;
+    }
+    
+    .pipeline-row:hover {
+      background: rgba(247, 242, 232, 0.04);
+    }
+    
+    .pipeline-meta {
+      padding: 16px 20px;
+      width: 320px;
+    }
+    
+    .pipeline-task {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    
+    .pipeline-desc {
+      font-family: var(--body);
+      font-size: 0.85rem;
+      color: var(--soft-text);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+    
+    .pipeline-cell {
+      padding: 8px;
+      border-left: 1px dashed var(--border);
+      position: relative;
+    }
+    
+    .pipeline-bar {
+      height: 32px;
+      border-radius: 8px;
+      border: 2px solid var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    
+    .pipeline-bar:hover {
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 0 var(--text);
+    }
+    
+    .bar-collab { background: #00d4aa; }
+    .bar-ops { background: var(--accent-2); }
+    .bar-proj { background: var(--accent); }
+
     .quote-band {
       position: relative;
       min-height: 68vh;
@@ -1448,35 +1541,12 @@
       transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
     }
 
-    .member-team-card::after {
-      content: attr(data-team-number);
-      position: absolute;
-      right: -12px;
-      bottom: -10px;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(11, 11, 9, 0.16);
-      font-family: var(--display);
-      font-size: clamp(5.4rem, 11vw, 8.2rem);
-      font-weight: 800;
-      letter-spacing: -0.08em;
-      transform: rotate(-8deg);
-    }
+    /* We remove the watermark for individual cards by omitting ::after */
 
     .member-team-card:hover {
       transform: translate(-4px, -4px);
       background: #fffaf0;
       box-shadow: 7px 7px 0 var(--accent);
-    }
-
-    .member-team-card h3 {
-      position: relative;
-      z-index: 2;
-      margin: 0 0 20px;
-      font-family: var(--display);
-      font-size: clamp(1.8rem, 3vw, 3rem);
-      line-height: 0.9;
-      letter-spacing: -0.065em;
-      text-transform: uppercase;
     }
 
     .member-list {
@@ -1492,16 +1562,10 @@
     .member-list li {
       display: grid;
       grid-template-columns: auto 1fr;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
       min-height: 54px;
-      padding: 10px 0;
-      border-top: 1px solid rgba(11, 11, 9, 0.18);
-    }
-
-    .member-list li:first-child {
-      border-top: 0;
-      padding-top: 0;
+      border-top: none;
     }
 
     .member-avatar {
@@ -1520,7 +1584,8 @@
       box-shadow: 3px 3px 0 var(--ink);
     }
 
-    .member-list li:nth-child(even) .member-avatar {
+    /* Simple alternate color for avatars */
+    .member-team-card:nth-child(even) .member-avatar {
       background: var(--accent);
     }
 
@@ -2205,6 +2270,7 @@
         <a href="#pillars">Sub-Teams</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#events">Events</a>
+        <a href="#pipeline">Pipeline</a>
         <a href="#team">Team</a>
         <a href="#faq">FAQ</a>
         <a href="#join">Join Us</a>
@@ -2280,7 +2346,7 @@
         <div class="section-inner about-grid reveal">
           <div class="stats" aria-label="NeuraCET highlights">
             <div class="stat">
-              <div class="stat-number">14</div>
+              <div class="stat-number">16</div>
               <div class="stat-copy">Team Members</div>
             </div>
             <div class="stat">
@@ -2542,6 +2608,36 @@
         </div>
       </section>
 
+      <!-- LIVE PIPELINE SECTION -->
+      <section class="section" id="pipeline" aria-labelledby="pipeline-heading">
+        <div class="section-inner">
+          <div class="projects-header reveal">
+            <div>
+              <div class="section-label">/ 05 LIVE PIPELINE</div>
+              <h2 class="section-title" id="pipeline-heading">Club Timeline.</h2>
+            </div>
+            <p class="section-kicker">The strategic roadmap and phases of NeuraCET from founding to future expansions.</p>
+          </div>
+
+          <div class="pipeline-wrapper reveal">
+            <table class="pipeline-table">
+              <thead>
+                <tr class="pipeline-header">
+                  <th>Phase & Activity</th>
+                  <th class="time-slot">Inception (May-Jun)</th>
+                  <th class="time-slot">Summer (Jul-Aug)</th>
+                  <th class="time-slot">Fall (Sep-Dec)</th>
+                  <th class="time-slot">Spring (Jan-Feb)</th>
+                </tr>
+              </thead>
+              <tbody id="pipeline-body">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <section class="quote-band reveal" aria-label="NeuraCET manifesto">
         <svg viewBox="0 0 900 520" aria-hidden="true">
           <defs>
@@ -2580,89 +2676,217 @@
         <div class="section-inner">
           <div class="team-header reveal">
             <div>
-              <div class="section-label">/ 05 THE PEOPLE</div>
-              <h2 class="section-title" id="team-heading">Builders, grouped by team.</h2>
+              <div class="section-label">/ 06 THE PEOPLE</div>
+              <h2 class="section-title" id="team-heading">The Neural Network.</h2>
             </div>
-            <p class="section-kicker">Members are listed equally under the sub-team they work with.</p>
+            <p class="section-kicker">The builders behind NeuraCET's systems and community.</p>
           </div>
 
           <div class="team-layout">
-            <article class="member-team-card reveal" data-team-number="01">
-              <h3>Technical</h3>
+            <!-- 1. Kailas Chandran -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
               <ul class="member-list">
-                <li>
+                <li style="border: none; padding: 0;">
                   <span class="member-avatar">KC</span>
-                  <span><span class="member-name">Kailas Chandran MS</span><span class="member-detail">IE, 2nd year</span></span>
-                </li>
-                <li>
-                  <span class="member-avatar">SK</span>
-                  <span><span class="member-name">S Kailas</span><span class="member-detail">EL, 2nd year</span></span>
-                </li>
-                <li>
-                  <span class="member-avatar">JJ</span>
-                  <span><span class="member-name">Joseph Jayan</span><span class="member-detail">CS, 2nd year</span></span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Kailas Chandran MS</span>
+                    <span class="member-detail">Root Node</span>
+                  </span>
                 </li>
               </ul>
             </article>
 
-            <article class="member-team-card reveal" data-team-number="02">
-              <h3>Outreach & Gemini</h3>
+            <!-- 2. Akshay V Sarma -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
               <ul class="member-list">
-                <li>
+                <li style="border: none; padding: 0;">
                   <span class="member-avatar">AVS</span>
-                  <span><span class="member-name">Akshay V Sarma</span><span class="member-detail">IE, 2nd year</span></span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Akshay V Sarma</span>
+                    <span class="member-detail">Chief Neuron</span>
+                  </span>
                 </li>
-                <li>
-                  <span class="member-avatar">AG</span>
-                  <span><span class="member-name">Anjana George</span><span class="member-detail">IE, 2nd year</span></span>
+              </ul>
+            </article>
+
+            <!-- 3. Aavani S -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">AS</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Aavani S</span>
+                    <span class="member-detail">Student Relations & Ops · Axial Node</span>
+                  </span>
                 </li>
-                <li>
-                  <span class="member-avatar">NN</span>
-                  <span><span class="member-name">Nihal Naseem RA</span><span class="member-detail">ECE, 2nd year</span></span>
-                </li>
-                <li>
+              </ul>
+            </article>
+
+            <!-- 4. Nakul G -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
                   <span class="member-avatar">NG</span>
-                  <span><span class="member-name">Nakul G</span><span class="member-detail">EL, 2nd year</span></span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Nakul G</span>
+                    <span class="member-detail">BD & Growth Lead · Gradient Lead</span>
+                  </span>
                 </li>
               </ul>
             </article>
 
-            <article class="member-team-card reveal" data-team-number="03">
-              <h3>Design</h3>
+            <!-- 5. Amit A Chengode -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
               <ul class="member-list">
-                <li>
-                  <span class="member-avatar">AK</span>
-                  <span><span class="member-name">Arun Krishna U</span><span class="member-detail">ECE, 2nd year</span></span>
-                </li>
-                <li>
-                  <span class="member-avatar">MB</span>
-                  <span><span class="member-name">Madhav B</span><span class="member-detail">IE, 2nd year</span></span>
-                </li>
-                <li>
-                  <span class="member-avatar">NR</span>
-                  <span><span class="member-name">Nandhu Ramesh</span><span class="member-detail">EL, 2nd year</span></span>
-                </li>
-                <li>
-                  <span class="member-avatar">ST</span>
-                  <span><span class="member-name">Sreesanth T</span><span class="member-detail">ECE, 2nd year</span></span>
-                </li>
-              </ul>
-            </article>
-
-            <article class="member-team-card reveal" data-team-number="04">
-              <h3>Content Media</h3>
-              <ul class="member-list">
-                <li>
-                  <span class="member-avatar">VN</span>
-                  <span><span class="member-name">Vishnusree N</span><span class="member-detail">CS, 2nd year</span></span>
-                </li>
-                <li>
+                <li style="border: none; padding: 0;">
                   <span class="member-avatar">AC</span>
-                  <span><span class="member-name">Amit A Chengode</span><span class="member-detail">CS, 2nd year</span></span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Amit A Chengode</span>
+                    <span class="member-detail">Content Lead · Token Generator</span>
+                  </span>
                 </li>
-                <li>
+              </ul>
+            </article>
+
+            <!-- 6. Anjana George -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">AG</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Anjana George</span>
+                    <span class="member-detail">Events Lead · Trigger Node</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 7. Adithyan -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">AD</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Adithyan</span>
+                    <span class="member-detail">Outreach Lead · Signal Node</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 8. Arun Krishna U -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">AK</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Arun Krishna U</span>
+                    <span class="member-detail">Media Head · Taurus</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 9. Sreesanth T -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">ST</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Sreesanth T</span>
+                    <span class="member-detail">Design Lead · Render Node</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 10. Vishnusree N -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">VN</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Vishnusree N</span>
+                    <span class="member-detail">PR & Research Lead · Insight Node</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 11. Sanjay Harishankar -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
                   <span class="member-avatar">SH</span>
-                  <span><span class="member-name">Sanjay Harishankar</span><span class="member-detail">CS, 2nd year</span></span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Sanjay Harishankar</span>
+                    <span class="member-detail">Documentation Head · Tokenizer</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 12. Nandhu Ramesh -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">NR</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Nandhu Ramesh</span>
+                    <span class="member-detail">Community Lead · Gen. Pretrained Transformer</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 13. Joseph Jayan -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">JJ</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Joseph Jayan</span>
+                    <span class="member-detail">Strategy & Partnerships · Synapse</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 14. S Kailas -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">SK</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">S Kailas</span>
+                    <span class="member-detail">Tech Lead · Core Weight</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 15. Madhav B -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">MB</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Madhav B</span>
+                    <span class="member-detail">Joint Secretary · Runtime Node</span>
+                  </span>
+                </li>
+              </ul>
+            </article>
+
+            <!-- 16. Nihal Naseem RA -->
+            <article class="member-team-card reveal" style="padding: 20px; min-height: auto;">
+              <ul class="member-list">
+                <li style="border: none; padding: 0;">
+                  <span class="member-avatar">NN</span>
+                  <span>
+                    <span class="member-name" style="font-size: 1.05rem;">Nihal Naseem RA</span>
+                    <span class="member-detail">ECE, 2nd year</span>
+                  </span>
                 </li>
               </ul>
             </article>
@@ -2673,7 +2897,7 @@
       <section class="section faq" id="faq" aria-labelledby="faq-heading">
         <div class="section-inner faq-layout">
           <div class="faq-intro reveal">
-            <div class="section-label">/ 06 FAQ</div>
+            <div class="section-label">/ 07 FAQ</div>
             <h2 class="section-title" id="faq-heading">Questions before launch?</h2>
             <p class="section-kicker">Short answers for students wondering where they fit in the NeuraCET system.</p>
           </div>
@@ -3254,6 +3478,48 @@
     document.querySelectorAll('.social-link[href="#"]').forEach((link) => {
       link.addEventListener("click", (event) => event.preventDefault());
     });
+
+    // Timeline Render Logic
+    const pipelineTasks = [
+      { title: "Founding", time: "Inception", cat: "ops", span: [1, 1], desc: "Founded by Akshay; pitched to and advised by Dr. Ajeesh Ramanujan (CSE HoD)" },
+      { title: "Launch", time: "May-Jun 2026", cat: "ops", span: [1, 1], desc: "Website, LinkedIn, logo, branding, WhatsApp community set up" },
+      { title: "Learning Sprint", time: "Jun-Jul 2026", cat: "proj", span: [1, 2], desc: "Month-long sprint across 3 tracks (Applied AI, Agentic AI, RAG AI) → Demo Day" },
+      { title: "Recruitment", time: "Sept 2026", cat: "collab", span: [3, 3], desc: "Recruiting for Media & Design, Marketing/PR, Research, Events & Outreach" },
+      { title: "Drishti Project", time: "Sept 2026", cat: "proj", span: [3, 3], desc: "Project work for Drishti (दृष्टि)" },
+      { title: "School Outreach", time: "Jan-Feb 2027", cat: "collab", span: [4, 4], desc: "Outreach initiative to schools" },
+      { title: "Module Expansion", time: "Feb 2027", cat: "proj", span: [4, 4], desc: "Expansion of RAG, Applied AI, and Agentic AI modules" }
+    ];
+
+    const pipelineBody = document.getElementById("pipeline-body");
+    if (pipelineBody) {
+      pipelineTasks.forEach(t => {
+        const tr = document.createElement("tr");
+        tr.className = "pipeline-row";
+        
+        const catClass = t.cat === 'collab' ? 'bar-collab' : t.cat === 'ops' ? 'bar-ops' : 'bar-proj';
+
+        let cells = `<td class="pipeline-meta">
+          <div class="pipeline-task">${t.title}</div>
+          <div class="pipeline-desc">${t.desc}</div>
+        </td>`;
+
+        for (let week = 1; week <= 4; week++) {
+          const inRange = week >= t.span[0] && week <= t.span[1];
+          const isStart = week === t.span[0];
+          
+          cells += `<td class="pipeline-cell">
+            ${inRange && isStart ? `
+              <div class="pipeline-bar ${catClass}" 
+                   style="width: calc(${t.span[1] - t.span[0] + 1}00% + ${(t.span[1] - t.span[0]) * 17}px); justify-content: center;">
+                ${t.time}
+              </div>
+            ` : ''}
+          </td>`;
+        }
+        
+        tr.innerHTML = cells;
+        pipelineBody.appendChild(tr);
+      });
+    }
   </script>
 </body>
-</html>
