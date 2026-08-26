@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="assets/neuracet-logo-384.png" alt="NeuraCET Logo" width="160" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/neuracet-mark-white.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="assets/branding/neuracet-mark-black.svg" />
+    <img src="assets/branding/neuracet-mark-black.svg" alt="NeuraCET Logo" width="160" />
+  </picture>
 </p>
 
 <h1 align="center">NeuraCET</h1>
@@ -202,7 +206,7 @@ The website is live at **[neuracet.github.io](https://neuracet.github.io)**
 NeuraCET.github.io/
 ├── index.html                  # Entire site — HTML, CSS, and JS in one file
 ├── assets/
-│   ├── neuracet-logo-384.png   # Club logo
+│   ├── branding/               # Cropped SVG club marks and favicon
 │   ├── leafscan.png            # Project screenshot
 │   ├── hydration-tracker.png   # Project screenshot
 │   ├── resume-critiquer.png    # Project screenshot
