@@ -6,8 +6,9 @@
   <meta name="description" content="NeuraCET is the Applied AI student club at College of Engineering Trivandrum, Kerala. We build agents, smart systems, and real AI projects.">
   <meta name="theme-color" content="#080808">
   <title>NeuraCET | Applied AI Club at CET Kerala</title>
-  <link rel="icon" type="image/png" href="assets/neuracet-logo-384.png">
-  <link rel="preload" as="image" href="assets/neuracet-logo-384.png">
+  <link rel="icon" type="image/svg+xml" href="assets/branding/neuracet-favicon.svg">
+  <link rel="preload" as="image" type="image/svg+xml" href="assets/branding/neuracet-mark-white.svg">
+  <link rel="preload" as="image" type="image/svg+xml" href="assets/branding/neuracet-mark-black.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -130,11 +131,7 @@
       place-items: center;
       padding: var(--pad);
       color: var(--text);
-      background:
-        linear-gradient(rgba(247, 242, 232, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(247, 242, 232, 0.05) 1px, transparent 1px),
-        var(--bg);
-      background-size: 44px 44px;
+      background: var(--bg);
       pointer-events: none;
       transition: opacity 420ms ease, visibility 0s linear 420ms;
     }
@@ -144,59 +141,26 @@
       opacity: 0;
     }
 
-    .logo-loader-card {
-      position: relative;
+    .logo-loader-content {
       display: grid;
-      place-items: center;
-      width: clamp(220px, 28vw, 340px);
-      aspect-ratio: 1;
-      border: 3px solid var(--border-strong);
-      border-radius: 36px;
-      background: var(--surface);
-      box-shadow: 12px 12px 0 var(--accent), 0 0 48px rgba(255, 90, 31, 0.16);
-      animation: logoCardIn 920ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
-    }
-
-    .logo-loader-card::before,
-    .logo-loader-card::after {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-    }
-
-    .logo-loader-card::before {
-      inset: 12px;
-      border: 1px solid rgba(11, 11, 9, 0.18);
-      border-radius: 26px;
-    }
-
-    .logo-loader-card::after {
-      inset: -14px;
-      border: 2px solid rgba(247, 255, 0, 0.72);
-      border-radius: 48px;
-      opacity: 0;
-      animation: logoSignal 1250ms ease-out infinite;
+      justify-items: center;
+      gap: 28px;
+      width: min(62vw, 240px);
+      animation: logoLoaderIn 700ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
     }
 
     .logo-loader img {
-      position: relative;
-      z-index: 1;
-      width: 88%;
+      display: block;
+      width: min(100%, 210px);
       height: auto;
-      border-radius: 18px;
-      filter: contrast(1.08);
-      animation: logoPulse 1250ms ease-in-out infinite;
     }
 
     .loader-line {
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 20px;
-      height: 4px;
+      width: 100%;
+      height: 3px;
       overflow: hidden;
       border-radius: 999px;
-      background: rgba(11, 11, 9, 0.14);
+      background: rgba(247, 242, 232, 0.16);
     }
 
     .loader-line::before {
@@ -206,7 +170,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       transform-origin: left;
-      animation: loaderLine 1250ms ease-in-out infinite;
+      animation: loaderLine 2200ms cubic-bezier(0.2, 0.72, 0.2, 1) both;
     }
 
     .page-shell {
@@ -304,11 +268,10 @@
     }
 
     .brand-logo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.34);
-      filter: contrast(1.08);
+      display: block;
+      width: 82%;
+      height: auto;
+      object-fit: contain;
     }
 
     .brand-text {
@@ -1781,55 +1744,87 @@
       line-height: 1.6;
     }
 
-    .join .button {
-      min-height: 64px;
-      margin-top: 36px;
-      padding: 0 32px;
-      font-size: 0.98rem;
-    }
-
     .socials {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      width: min(100%, 900px);
+      margin: 42px auto 0;
     }
 
     .social-link {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      min-height: 42px;
-      padding: 0 14px;
+      justify-content: flex-start;
+      gap: 14px;
+      min-height: 94px;
+      padding: 16px 22px;
       border: 1px solid var(--border);
-      border-radius: 999px;
+      border-radius: 18px;
       color: var(--text);
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       font-weight: 900;
       letter-spacing: 0.04em;
       background: rgba(247, 242, 232, 0.045);
-      transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+      box-shadow: 4px 4px 0 rgba(247, 242, 232, 0.12);
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .social-link-accent {
+      border-color: var(--accent);
+      color: var(--ink);
+      background: var(--accent);
+      box-shadow: 4px 4px 0 var(--text);
     }
 
     .social-link:hover {
       color: var(--ink);
       background: var(--text);
-      transform: translateY(-3px);
+      box-shadow: 7px 7px 0 var(--accent);
+      transform: translate(-3px, -3px);
     }
 
     .social-icon {
       display: grid;
       place-items: center;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      color: var(--ink);
-      background: var(--accent-2);
-      font-size: 0.66rem;
-      font-weight: 900;
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      padding: 7px;
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .social-icon img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .social-copy {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .social-name {
+      font-family: var(--display);
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+
+    .social-caption {
+      font-size: 0.68rem;
+      line-height: 1.25;
+      letter-spacing: 0.055em;
+      opacity: 0.72;
+      text-transform: uppercase;
     }
 
     .footer {
@@ -1888,10 +1883,10 @@
       color: var(--ink);
     }
 
-    @keyframes logoCardIn {
+    @keyframes logoLoaderIn {
       from {
         opacity: 0;
-        transform: translateY(18px) scale(0.94);
+        transform: translateY(12px) scale(0.97);
       }
       to {
         opacity: 1;
@@ -1899,26 +1894,9 @@
       }
     }
 
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.035); }
-    }
-
-    @keyframes logoSignal {
-      0% {
-        opacity: 0.62;
-        transform: scale(0.94);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.12);
-      }
-    }
-
     @keyframes loaderLine {
-      0% { transform: scaleX(0.12) translateX(-82%); }
-      50% { transform: scaleX(0.72) translateX(12%); }
-      100% { transform: scaleX(0.18) translateX(105%); }
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
     }
 
     @keyframes cursorBlink {
@@ -1949,9 +1927,7 @@
         opacity: 0.42;
       }
 
-      .logo-loader-card,
-      .logo-loader-card::after,
-      .logo-loader img,
+      .logo-loader-content,
       .loader-line::before {
         animation: none !important;
       }
@@ -2081,6 +2057,7 @@
       .section-kicker {
         margin-top: 18px;
       }
+
     }
 
     @media (max-width: 680px) {
@@ -2175,6 +2152,16 @@
       .button {
         max-width: 100%;
         width: 100%;
+      }
+
+      .socials {
+        grid-template-columns: 1fr;
+        width: min(100%, 360px);
+      }
+
+      .social-link {
+        justify-content: flex-start;
+        min-height: 88px;
       }
 
       .stat {
@@ -2274,8 +2261,8 @@
 </head>
 <body>
   <div class="logo-loader" role="status" aria-label="Loading NeuraCET">
-    <div class="logo-loader-card">
-      <img src="assets/neuracet-logo-384.png" alt="" width="384" height="384" decoding="async" fetchpriority="high">
+    <div class="logo-loader-content">
+      <img src="assets/branding/neuracet-mark-white.svg" alt="" width="130" height="88" decoding="async" fetchpriority="high">
       <span class="loader-line" aria-hidden="true"></span>
     </div>
   </div>
@@ -2286,7 +2273,7 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="#top" class="brand" aria-label="NeuraCET home">
         <span class="brand-logo-wrap" aria-hidden="true">
-          <img class="brand-logo" src="assets/neuracet-logo-384.png" alt="" width="72" height="72" decoding="async">
+          <img class="brand-logo" src="assets/branding/neuracet-mark-black.svg" alt="" width="130" height="88" decoding="async">
         </span>
         <span class="brand-text">
           <span class="brand-name">NeuraCET</span>
@@ -2354,7 +2341,7 @@
           </h1>
           <p class="hero-copy">NeuraCET is CET's Applied AI club — where students stop learning about AI and start building with it.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#join">Coming Soon</a>
+            <a class="button button-primary" href="#join">Join Us!</a>
             <a class="button button-ghost" href="#events">See Our Work ↓</a>
           </div>
         </div>
@@ -2924,19 +2911,34 @@
         <div class="section-inner reveal">
           <h2 class="join-title" id="join-heading">Ready to build?</h2>
           <p class="join-copy">NeuraCET is open to all CET students. No gatekeeping. Just builders.</p>
-          <a class="button button-primary" href="mailto:neuracet@cet.ac.in?subject=Apply%20to%20Join%20NeuraCET">Coming Soon</a>
           <div class="socials" aria-label="Social links">
+            <a class="social-link social-link-accent" href="https://chat.whatsapp.com/IWeBmgpYMFb0ora3wfi2Dp?s=cl&amp;p=a&amp;ilr=1" target="_blank" rel="noopener noreferrer" aria-label="Join the NeuraCET WhatsApp community">
+              <span class="social-icon" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="28" height="28" alt="" loading="lazy" decoding="async"></span>
+              <span class="social-copy">
+                <span class="social-name">WhatsApp</span>
+                <span class="social-caption">Join the community</span>
+              </span>
+            </a>
+            <a class="social-link social-link-accent" href="https://www.instagram.com/neuracet?igsh=MTg4MzYxcm53Nm44" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET Instagram">
+              <span class="social-icon" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" width="28" height="28" alt="" loading="lazy" decoding="async"></span>
+              <span class="social-copy">
+                <span class="social-name">Instagram</span>
+                <span class="social-caption">Follow our journey</span>
+              </span>
+            </a>
             <a class="social-link" href="https://github.com/NeuraCET/" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET GitHub">
-              <span class="social-icon" aria-hidden="true">G</span>
-              <span>GitHub · @neuracet</span>
+              <span class="social-icon" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg" width="28" height="28" alt="" loading="lazy" decoding="async"></span>
+              <span class="social-copy">
+                <span class="social-name">GitHub</span>
+                <span class="social-caption">Explore our builds</span>
+              </span>
             </a>
             <a class="social-link" href="https://www.linkedin.com/in/neuracet/" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET LinkedIn">
-              <span class="social-icon" aria-hidden="true">in</span>
-              <span>LinkedIn · NeuraCET</span>
-            </a>
-            <a class="social-link" href="https://www.instagram.com/neuracet?igsh=MTg4MzYxcm53Nm44" target="_blank" rel="noopener noreferrer" aria-label="NeuraCET Instagram">
-              <span class="social-icon" aria-hidden="true">IG</span>
-              <span>Instagram · @neuracet</span>
+              <span class="social-icon" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" width="28" height="28" alt="" loading="lazy" decoding="async"></span>
+              <span class="social-copy">
+                <span class="social-name">LinkedIn</span>
+                <span class="social-caption">Connect with us</span>
+              </span>
             </a>
           </div>
         </div>
