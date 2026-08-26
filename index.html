@@ -1429,6 +1429,74 @@
       text-transform: uppercase;
     }
 
+    .team-portrait {
+      margin: 0 0 clamp(42px, 6vw, 76px);
+      padding: clamp(9px, 1.2vw, 14px);
+      border: 2px solid var(--border-strong);
+      border-radius: 30px;
+      color: var(--ink);
+      background: var(--surface);
+      box-shadow: 10px 10px 0 var(--accent);
+    }
+
+    .team-portrait picture {
+      display: block;
+    }
+
+    .team-portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      border: 2px solid var(--ink);
+      border-radius: 20px;
+      background: var(--ink);
+      object-fit: contain;
+    }
+
+    .team-portrait-caption {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(240px, 0.5fr);
+      gap: clamp(20px, 4vw, 56px);
+      align-items: end;
+      padding: clamp(22px, 4vw, 48px) clamp(12px, 3vw, 34px) clamp(16px, 2.5vw, 28px);
+    }
+
+    .team-portrait-eyebrow {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 7px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--accent-2);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .team-portrait-heading {
+      max-width: 820px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 6.2vw, 6.4rem);
+      font-weight: 800;
+      line-height: 0.82;
+      letter-spacing: -0.085em;
+      text-transform: uppercase;
+    }
+
+    .team-portrait-copy {
+      margin: 0;
+      padding-top: 16px;
+      border-top: 2px solid var(--ink);
+      font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+      font-weight: 700;
+      line-height: 1.55;
+      letter-spacing: -0.02em;
+    }
+
     .team-layout {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2005,6 +2073,11 @@
         display: block;
       }
 
+      .team-portrait-caption {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
       .section-kicker {
         margin-top: 18px;
       }
@@ -2126,6 +2199,27 @@
       .roadmap-step,
       .faq-item {
         border-radius: 18px;
+      }
+
+      .team-portrait {
+        margin-bottom: 38px;
+        padding: 7px;
+        border-radius: 20px;
+        box-shadow: 5px 5px 0 var(--accent);
+      }
+
+      .team-portrait img {
+        border-radius: 13px;
+      }
+
+      .team-portrait-caption {
+        gap: 18px;
+        padding: 22px 11px 16px;
+      }
+
+      .team-portrait-heading {
+        font-size: clamp(2.35rem, 12vw, 3.6rem);
+        line-height: 0.84;
       }
 
       .project-list {
@@ -2583,8 +2677,32 @@
               <div class="section-label">/ 05 THE PEOPLE</div>
               <h2 class="section-title" id="team-heading">Builders, grouped by team.</h2>
             </div>
-            <p class="section-kicker">Members are listed equally under the sub-team they work with.</p>
           </div>
+
+          <figure class="team-portrait reveal">
+            <picture>
+              <source
+                type="image/webp"
+                srcset="assets/neuracet-team-1280.webp 1280w, assets/neuracet-team-2400.webp 2400w"
+                sizes="(max-width: 680px) calc(100vw - 50px), (max-width: 1320px) calc(100vw - 10vw), 1240px">
+              <img
+                src="assets/neuracet-team.jpg"
+                srcset="assets/neuracet-team-1280.jpg 1280w, assets/neuracet-team.jpg 2400w"
+                sizes="(max-width: 680px) calc(100vw - 50px), (max-width: 1320px) calc(100vw - 10vw), 1240px"
+                width="2400"
+                height="1350"
+                loading="lazy"
+                decoding="async"
+                alt="The NeuraCET team gathered together outdoors at College of Engineering Trivandrum.">
+            </picture>
+            <figcaption class="team-portrait-caption">
+              <div>
+                <span class="team-portrait-eyebrow">One club · Four teams</span>
+                <h3 class="team-portrait-heading">Meet the minds behind NeuraCET.</h3>
+              </div>
+              <p class="team-portrait-copy">A student-led crew turning curiosity into working AI—learning together, shipping together, and building for CET.</p>
+            </figcaption>
+          </figure>
 
           <div class="team-layout">
             <article class="member-team-card reveal" data-team-number="01">
